@@ -1,4 +1,4 @@
-package com.luseen.verticalintro;
+package com.luseen.verticalIntro;
 
 import android.content.Context;
 import android.support.v4.view.ViewPager;
@@ -14,6 +14,8 @@ import java.lang.reflect.Field;
  */
 
 public class VerticalViewPager extends ViewPager {
+
+    private ScrollerCustomDuration mScroller;
 
     public VerticalViewPager(Context context) {
         super(context);
@@ -49,8 +51,6 @@ public class VerticalViewPager extends ViewPager {
         return super.onTouchEvent(swapXY(ev));
     }
 
-    private ScrollerCustomDuration mScroller = null;
-
     /**
      * Override the Scroller instance with our own class so we can change the
      * duration
@@ -63,7 +63,6 @@ public class VerticalViewPager extends ViewPager {
             scroller.setAccessible(true);
             Field interpolator = ViewPager.class.getDeclaredField("sInterpolator");
             interpolator.setAccessible(true);
-
             mScroller = new ScrollerCustomDuration(getContext(),
                     new DecelerateInterpolator());
             scroller.set(this, mScroller);

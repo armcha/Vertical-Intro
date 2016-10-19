@@ -1,4 +1,4 @@
-package com.luseen.verticalintro;
+package com.luseen.verticalIntro;
 
 import android.annotation.SuppressLint;
 import android.content.Context;

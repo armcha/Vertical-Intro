@@ -1,4 +1,4 @@
-package com.luseen.verticalintro;
+package com.luseen.verticalIntro;
 
 import android.support.v4.view.ViewPager;
 import android.view.View;

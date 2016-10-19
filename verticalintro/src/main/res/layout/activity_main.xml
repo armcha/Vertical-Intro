@@ -3,10 +3,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/activity_main"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context="com.luseen.verticalintro.com.luseen.library.MainActivity">
+    android:layout_height="match_parent">
 
-    <com.luseen.library.VerticalViewPager
+    <com.luseen.verticalIntro.VerticalViewPager
         android:id="@+id/vertical_view_pager"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
