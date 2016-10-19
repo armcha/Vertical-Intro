@@ -1,1 +1,1 @@
-include ':app', ':verticalintro'
+include ':app', ':library', ':lib', ':verticalintrolibrary'

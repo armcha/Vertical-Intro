@@ -9,7 +9,9 @@
           <set>
             <option value="$PROJECT_DIR$" />
             <option value="$PROJECT_DIR$/app" />
-            <option value="$PROJECT_DIR$/verticalintro" />
+            <option value="$PROJECT_DIR$/lib" />
+            <option value="$PROJECT_DIR$/library" />
+            <option value="$PROJECT_DIR$/verticalintrolibrary" />
           </set>
         </option>
         <option name="resolveModulePerSourceSet" value="false" />
