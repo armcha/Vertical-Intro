@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.luseen.verticalintro.MainActivity">
+
+    <com.luseen.verticalintro.VerticalViewPager
+        android:id="@+id/vertical_view_pager"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
+    <RelativeLayout
+        android:id="@+id/bottom_view"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:layout_alignParentBottom="true">
+
+    </RelativeLayout>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="40dp"
+        android:layout_alignParentBottom="true"
+        android:text="NEXT"
+        android:layout_centerHorizontal="true"
+        android:id="@+id/next"
+        android:textStyle="bold"
+        android:textColor="@android:color/white"
+        android:textSize="17dp"/>
+</RelativeLayout>
