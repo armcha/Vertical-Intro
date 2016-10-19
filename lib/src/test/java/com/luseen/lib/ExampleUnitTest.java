@@ -1,4 +1,4 @@
-package com.luseen.library;
+package com.luseen.lib;
 
 import org.junit.Test;
 

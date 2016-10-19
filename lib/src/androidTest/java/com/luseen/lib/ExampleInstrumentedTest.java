@@ -1,4 +1,4 @@
-package com.luseen.library;
+package com.luseen.lib;
 
 import android.content.Context;
 import android.support.test.InstrumentationRegistry;
@@ -21,6 +21,6 @@ public class ExampleInstrumentedTest {
         // Context of the app under test.
         Context appContext = InstrumentationRegistry.getTargetContext();
 
-        assertEquals("com.luseen.library.test", appContext.getPackageName());
+        assertEquals("com.luseen.lib.test", appContext.getPackageName());
     }
 }
