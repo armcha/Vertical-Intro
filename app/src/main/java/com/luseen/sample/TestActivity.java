@@ -13,5 +13,6 @@ public class TestActivity extends VerticalIntro {
         addVerticalIntroItem(new VerticalIntroItem(1, R.color.color3, "A"));
         addVerticalIntroItem(new VerticalIntroItem(1, R.color.colorPrimary, "A"));
         addVerticalIntroItem(new VerticalIntroItem(1, R.color.colorPrimaryDark, "A"));
+        //test
     }
 }
