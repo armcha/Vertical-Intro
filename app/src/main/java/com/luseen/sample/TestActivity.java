@@ -1,6 +1,8 @@
 package com.luseen.sample;
 
 
+import android.graphics.Color;
+
 import com.luseen.verticalintrolibrary.VerticalIntro;
 import com.luseen.verticalintrolibrary.VerticalIntroItem;
 
@@ -13,6 +15,10 @@ public class TestActivity extends VerticalIntro {
         addVerticalIntroItem(new VerticalIntroItem(1, R.color.color3, "A"));
         addVerticalIntroItem(new VerticalIntroItem(1, R.color.colorPrimary, "A"));
         addVerticalIntroItem(new VerticalIntroItem(1, R.color.colorPrimaryDark, "A"));
-        //test
+    }
+
+    @Override
+    protected Integer setLastItemBottomViewColor() {
+        return Color.CYAN;
     }
 }

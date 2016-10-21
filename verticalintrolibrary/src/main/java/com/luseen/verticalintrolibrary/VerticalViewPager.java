@@ -16,6 +16,7 @@ import java.lang.reflect.Field;
 public class VerticalViewPager extends ViewPager {
 
     private ScrollerCustomDuration mScroller;
+    private boolean isPagingEnabled = true;
 
     public VerticalViewPager(Context context) {
         super(context);
@@ -27,28 +28,22 @@ public class VerticalViewPager extends ViewPager {
         init();
     }
 
-    private MotionEvent swapXY(MotionEvent ev) {
-        float width = getWidth();
-        float height = getHeight();
-
-        float newX = (ev.getY() / height) * width;
-        float newY = (ev.getX() / width) * height;
-
-        ev.setLocation(newX, newY);
-
-        return ev;
+    public void setPagingEnabled(boolean enabled) {
+        this.isPagingEnabled = enabled;
     }
 
     @Override
     public boolean onInterceptTouchEvent(MotionEvent ev) {
         boolean intercepted = super.onInterceptTouchEvent(swapXY(ev));
         swapXY(ev); // return touch coordinates to original reference frame for any child views
-        return intercepted;
+        return this.isPagingEnabled && intercepted;
+        //return  intercepted;
     }
 
     @Override
     public boolean onTouchEvent(MotionEvent ev) {
-        return super.onTouchEvent(swapXY(ev));
+        return this.isPagingEnabled && super.onTouchEvent(swapXY(ev));
+        //return super.onTouchEvent(swapXY(ev));
     }
 
     /**
@@ -69,6 +64,18 @@ public class VerticalViewPager extends ViewPager {
         } catch (Exception e) {
             Log.e("postInitViewPager ", "" + e.getMessage());
         }
+    }
+
+    private MotionEvent swapXY(MotionEvent ev) {
+        float width = getWidth();
+        float height = getHeight();
+
+        float newX = (ev.getY() / height) * width;
+        float newY = (ev.getX() / width) * height;
+
+        ev.setLocation(newX, newY);
+
+        return ev;
     }
 
     /**
