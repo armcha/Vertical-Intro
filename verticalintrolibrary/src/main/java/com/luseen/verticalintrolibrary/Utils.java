@@ -2,6 +2,8 @@ package com.luseen.verticalintrolibrary;
 
 import android.animation.AnimatorListenerAdapter;
 import android.animation.ObjectAnimator;
+import android.util.Log;
+import android.view.MotionEvent;
 import android.view.View;
 
 /**
@@ -14,6 +16,7 @@ class Utils {
         ObjectAnimator objectAnimator = ObjectAnimator.ofFloat(view, View.TRANSLATION_Y, view.getHeight());
         //objectAnimator.setStartDelay(100);
         objectAnimator.addListener(listenerAdapter);
+        objectAnimator.setDuration(100);
         objectAnimator.start();
     }
 

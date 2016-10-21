@@ -18,13 +18,16 @@ import java.util.List;
 
 public abstract class VerticalIntro extends AppCompatActivity {
 
-    public static final String TAG = "VerticalIntro";
+    private static final String TAG = "VerticalIntro";
+    private static final double SCROLL_DURATION_FACTOR_ON_SCROLL = 4;
+    private static final double SCROLL_DURATION_FACTOR_ON_CLICK = 1.5;
+    private static final int FORWARD_SCROLL_ANIMATION_DURATION = 800;
+    private static final int BACKWARD_SCROLL_ANIMATION_DURATION = 600;
+
     private List<VerticalIntroItem> verticalIntroItemList = new ArrayList<>();
     private VerticalViewPager verticalViewPager;
     private RelativeLayout bottomView;
     private Context context;
-    private double newX, newY, oldX, oldY;
-    private long scrollStartTime;
     private double scrollSpeed;
     private int currentPosition;
     private boolean isChangedFromClick = false;
@@ -51,37 +54,27 @@ public abstract class VerticalIntro extends AppCompatActivity {
     private View.OnClickListener bottomButtonClickListener = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
-            if (verticalViewPager.getCurrentItem() == verticalIntroItemList.size() - 1) {
+            int currentViewPagerItemPosition = verticalViewPager.getCurrentItem();
+            if (currentViewPagerItemPosition == verticalIntroItemList.size() - 1) {
                 Log.e("onClick ", "Last Item reached");
             } else {
                 isChangedFromClick = true;
-                verticalViewPager.setScrollDurationFactor(4);
-                verticalViewPager.setCurrentItem(verticalViewPager.getCurrentItem() + 1);
+                verticalViewPager.setScrollDurationFactor(SCROLL_DURATION_FACTOR_ON_SCROLL);
+                verticalViewPager.setCurrentItem(currentViewPagerItemPosition + 1);
                 Utils.makeTranslationYAnimation(bottomView, new AnimatorListenerAdapter() {
                     @Override
                     public void onAnimationEnd(Animator animation) {
                         super.onAnimationEnd(animation);
-                        final int currentBackgroundColor;
-                        if (verticalViewPager.getCurrentItem() == verticalIntroItemList.size() - 1) {
-                            if (setLastItemBottomViewColor() != null) {
-                                currentBackgroundColor = setLastItemBottomViewColor();
-                            } else {
-                                Log.e(TAG, "Last item bottom view color is null");
-                                currentBackgroundColor = verticalIntroItemList.get(0).getColor();
-                            }
 
-                        } else {
-                            currentBackgroundColor = ContextCompat.getColor(context,
-                                    verticalIntroItemList.get(verticalViewPager.getCurrentItem() + 1).getColor());
-                        }
+                        changeBottomViewBackgroundColor();
 
-                        bottomView.setBackgroundColor(currentBackgroundColor);
-                        ObjectAnimator objectAnimator = ObjectAnimator.ofFloat(bottomView, View.TRANSLATION_Y, 0).setDuration(600);
+                        ObjectAnimator objectAnimator = ObjectAnimator.ofFloat(bottomView, View.TRANSLATION_Y, 0);
+                        objectAnimator.setDuration(BACKWARD_SCROLL_ANIMATION_DURATION);
                         objectAnimator.addListener(new AnimatorListenerAdapter() {
                             @Override
                             public void onAnimationEnd(Animator animation) {
                                 super.onAnimationEnd(animation);
-                                verticalViewPager.setScrollDurationFactor(1.5);
+                                verticalViewPager.setScrollDurationFactor(SCROLL_DURATION_FACTOR_ON_CLICK);
                             }
                         });
                         objectAnimator.start();
@@ -104,7 +97,8 @@ public abstract class VerticalIntro extends AppCompatActivity {
                             int currentBackgroundColor = ContextCompat.getColor(context,
                                     verticalIntroItemList.get(position + 1).getColor());
                             bottomView.setBackgroundColor(currentBackgroundColor);
-                            Utils.makeTranslationYAnimation(bottomView, (long) (1000 / (scrollSpeed)));
+                            long duration = (long) (FORWARD_SCROLL_ANIMATION_DURATION / (scrollSpeed));
+                            Utils.makeTranslationYAnimation(bottomView, duration);
                         }
                     });
                 } else {
@@ -113,26 +107,16 @@ public abstract class VerticalIntro extends AppCompatActivity {
                             @Override
                             public void onAnimationEnd(Animator animation) {
                                 super.onAnimationEnd(animation);
-                                final int currentBackgroundColor;
-                                if (position == verticalIntroItemList.size() - 1) {
-                                    if (setLastItemBottomViewColor() != null) {
-                                        currentBackgroundColor = setLastItemBottomViewColor();
-                                    } else {
-                                        Log.e(TAG, "Last item bottom view color is null");
-                                        currentBackgroundColor = verticalIntroItemList.get(0).getColor();
-                                    }
 
-                                } else {
-                                    currentBackgroundColor = ContextCompat.getColor(context,
-                                            verticalIntroItemList.get(position + 1).getColor());
-                                }
+                                changeBottomViewBackgroundColor();
 
-                                bottomView.setBackgroundColor(currentBackgroundColor);
-                                Utils.makeTranslationYAnimation(bottomView, (long) (800 / (scrollSpeed)));
+                                long duration = (long) (FORWARD_SCROLL_ANIMATION_DURATION / (scrollSpeed));
+                                Utils.makeTranslationYAnimation(bottomView, duration);
                             }
                         });
                     } else {
-                        Utils.makeTranslationYAnimation(bottomView, (long) (600 / (scrollSpeed)), new AnimatorListenerAdapter() {
+                        long duration = (long) (BACKWARD_SCROLL_ANIMATION_DURATION / (scrollSpeed));
+                        Utils.makeTranslationYAnimation(bottomView, duration, new AnimatorListenerAdapter() {
                             @Override
                             public void onAnimationEnd(Animator animation) {
                                 super.onAnimationEnd(animation);
@@ -151,6 +135,23 @@ public abstract class VerticalIntro extends AppCompatActivity {
         }
     };
 
+    private void changeBottomViewBackgroundColor() {
+        final int currentBackgroundColor;
+        if (verticalViewPager.getCurrentItem() == verticalIntroItemList.size() - 1) {
+            if (setLastItemBottomViewColor() != null) {
+                currentBackgroundColor = setLastItemBottomViewColor();
+            } else {
+                Log.e(TAG, "Last item bottom view color is null");
+                currentBackgroundColor = verticalIntroItemList.get(0).getColor();
+            }
+
+        } else {
+            currentBackgroundColor = ContextCompat.getColor(context,
+                    verticalIntroItemList.get(verticalViewPager.getCurrentItem() + 1).getColor());
+        }
+        bottomView.setBackgroundColor(currentBackgroundColor);
+    }
+
     private void addListeners() {
         verticalViewPager.addOnPageChangeListener(pageChangeListener);
         bottomView.setOnClickListener(bottomButtonClickListener);
@@ -164,24 +165,30 @@ public abstract class VerticalIntro extends AppCompatActivity {
     private void setUpViewPager() {
         PagerAdapter pagerAdapter = new PagerAdapter(getSupportFragmentManager(), verticalIntroItemList);
         verticalViewPager.setAdapter(pagerAdapter);
-        verticalViewPager.setScrollDurationFactor(1.5);
+        verticalViewPager.setScrollDurationFactor(SCROLL_DURATION_FACTOR_ON_CLICK);
         //verticalViewPager.setPageTransformer(false,new SimplePagerTransform());
     }
 
     private void getScrollSpeed() {
+        final double[] newX = new double[1];
+        final double[] newY = new double[1];
+        final double[] oldX = new double[1];
+        final double[] oldY = new double[1];
+        final long[] scrollStartTime = new long[1];
         verticalViewPager.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
                 int action = event.getAction();
                 if (action == MotionEvent.ACTION_DOWN) {
-                    oldX = event.getX();
-                    oldY = event.getY();
-                    scrollStartTime = System.currentTimeMillis();
+                    oldX[0] = event.getX();
+                    oldY[0] = event.getY();
+                    scrollStartTime[0] = System.currentTimeMillis();
                 } else if (action == MotionEvent.ACTION_UP) {
-                    long scrollTime = System.currentTimeMillis() - scrollStartTime;
-                    newX = event.getX();
-                    newY = event.getY();
-                    double distance = Math.sqrt((newX - oldX) * (newX - oldX) + (newY - oldY) * (newY - oldY));
+                    long scrollTime = System.currentTimeMillis() - scrollStartTime[0];
+                    newX[0] = event.getX();
+                    newY[0] = event.getY();
+                    double distance = Math.sqrt((newX[0] - oldX[0]) * (newX[0] - oldX[0])
+                            + (newY[0] - oldY[0]) * (newY[0] - oldY[0]));
                     scrollSpeed = distance / scrollTime;
                 }
                 return false;

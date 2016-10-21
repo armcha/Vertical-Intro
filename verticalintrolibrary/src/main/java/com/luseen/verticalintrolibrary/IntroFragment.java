@@ -6,16 +6,19 @@ import android.support.v4.content.ContextCompat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 
-public class SimpleFragment extends Fragment {
+public class IntroFragment extends Fragment {
 
     private static final String VERTICAL_INTRO_ITEM_BUNDLE_KEY = "verticalIntroItemBundleKey";
 
-    public static SimpleFragment newInstance(VerticalIntroItem verticalIntroItem) {
+    private TextView text;
+
+    public static IntroFragment newInstance(VerticalIntroItem verticalIntroItem) {
         Bundle args = new Bundle();
         args.putParcelable(VERTICAL_INTRO_ITEM_BUNDLE_KEY, verticalIntroItem);
-        SimpleFragment fragment = new SimpleFragment();
+        IntroFragment fragment = new IntroFragment();
         fragment.setArguments(args);
         return fragment;
     }
@@ -25,8 +28,9 @@ public class SimpleFragment extends Fragment {
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_simple, container, false);
         VerticalIntroItem verticalIntroItem = getArguments().getParcelable(VERTICAL_INTRO_ITEM_BUNDLE_KEY);
+        text = (TextView) view.findViewById(R.id.text);
+        text.setText(verticalIntroItem.getText());
         view.setBackgroundColor(ContextCompat.getColor(getActivity(), verticalIntroItem.getColor()));
         return view;
     }
-
 }
