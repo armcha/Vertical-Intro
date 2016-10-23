@@ -5,9 +5,11 @@ import android.support.v4.view.ViewPager;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.view.MotionEvent;
+import android.view.View;
 import android.view.animation.DecelerateInterpolator;
 
 import java.lang.reflect.Field;
+import java.lang.reflect.Method;
 
 /**
  * Created by Chatikyan on 18.10.2016.
@@ -46,6 +48,11 @@ public class VerticalViewPager extends ViewPager {
         //return super.onTouchEvent(swapXY(ev));
     }
 
+    @Override
+    protected void onPageScrolled(int position, float offset, int offsetPixels) {
+        super.onPageScrolled(position, offset, offsetPixels);
+    }
+
     /**
      * Override the Scroller instance with our own class so we can change the
      * duration
@@ -56,8 +63,6 @@ public class VerticalViewPager extends ViewPager {
         try {
             Field scroller = ViewPager.class.getDeclaredField("mScroller");
             scroller.setAccessible(true);
-            Field interpolator = ViewPager.class.getDeclaredField("sInterpolator");
-            interpolator.setAccessible(true);
             mScroller = new ScrollerCustomDuration(getContext(),
                     new DecelerateInterpolator());
             scroller.set(this, mScroller);

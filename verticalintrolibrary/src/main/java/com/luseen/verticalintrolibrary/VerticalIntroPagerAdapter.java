@@ -10,11 +10,11 @@ import java.util.List;
  * Created by Chatikyan on 18.10.2016.
  */
 
-class PagerAdapter extends FragmentPagerAdapter {
+class VerticalIntroPagerAdapter extends FragmentPagerAdapter {
 
     private List<VerticalIntroItem> verticalIntroItemList;
 
-    PagerAdapter(FragmentManager fm, List<VerticalIntroItem> verticalIntroItemList) {
+    VerticalIntroPagerAdapter(FragmentManager fm, List<VerticalIntroItem> verticalIntroItemList) {
         super(fm);
         this.verticalIntroItemList = verticalIntroItemList;
     }

@@ -1,32 +1,52 @@
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/backgroundColor"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginLeft="70dp"
+        android:layout_marginRight="70dp"
+        android:layout_marginTop="70dp"
+        android:layout_weight=".40"
+        android:id="@+id/image"
+        android:adjustViewBounds="true"
+        app:srcCompat="@drawable/android" />
 
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_centerInParent="true"
+        android:layout_marginBottom="100dp"
+        android:layout_marginTop="10dp"
+        android:layout_weight=".60"
+        android:gravity="bottom"
         android:orientation="vertical">
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_margin="20dp"
-            android:gravity="center_horizontal"
-            android:text="@string/hello_blank_fragment"
+            android:layout_gravity="left"
+            android:layout_marginLeft="@dimen/intro_margin"
+            android:text="Welcome"
+            android:id="@+id/title"
             android:textColor="@android:color/white"
-            android:textSize="20sp" />
+            android:textSize="@dimen/intro_tittle_text_size" />
 
         <TextView
             android:id="@+id/text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:gravity="center_horizontal"
-            android:text="@string/hello_blank_fragment"
-            android:textColor="@android:color/white"
             android:layout_gravity="center_horizontal"
-            android:textSize="30sp" />
-
+            android:layout_marginLeft="@dimen/intro_margin"
+            android:layout_marginRight="@dimen/intro_margin"
+            android:layout_marginTop="30dp"
+            android:text="Discover Lively Cambridge, events you may like, new and attractive things to do in our beautiful city and surrounding areas, be a part of the best events and don’t miss shows, concerts, parties, festivals and much more."
+            android:textColor="@android:color/white"
+            android:textSize="@dimen/intro_message_text_size" />
     </LinearLayout>
-
-</RelativeLayout>
+</LinearLayout>

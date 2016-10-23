@@ -163,10 +163,10 @@ public abstract class VerticalIntro extends AppCompatActivity {
     }
 
     private void setUpViewPager() {
-        PagerAdapter pagerAdapter = new PagerAdapter(getSupportFragmentManager(), verticalIntroItemList);
+        VerticalIntroPagerAdapter pagerAdapter = new VerticalIntroPagerAdapter(getSupportFragmentManager(), verticalIntroItemList);
         verticalViewPager.setAdapter(pagerAdapter);
         verticalViewPager.setScrollDurationFactor(SCROLL_DURATION_FACTOR_ON_CLICK);
-        //verticalViewPager.setPageTransformer(false,new SimplePagerTransform());
+        verticalViewPager.setPageTransformer(false,new SimplePagerTransform());
     }
 
     private void getScrollSpeed() {

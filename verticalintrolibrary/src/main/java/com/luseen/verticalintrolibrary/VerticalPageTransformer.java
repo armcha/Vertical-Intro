@@ -9,7 +9,6 @@ import android.view.View;
 
 public class VerticalPageTransformer implements ViewPager.PageTransformer {
 
-
     @Override
     public void transformPage(View view, float position) {
 
