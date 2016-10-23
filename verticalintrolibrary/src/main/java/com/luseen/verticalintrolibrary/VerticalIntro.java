@@ -28,9 +28,9 @@ public abstract class VerticalIntro extends AppCompatActivity {
     private VerticalViewPager verticalViewPager;
     private RelativeLayout bottomView;
     private Context context;
+    private boolean isChangedFromClick = false;
     private double scrollSpeed;
     private int currentPosition;
-    private boolean isChangedFromClick = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,7 +40,7 @@ public abstract class VerticalIntro extends AppCompatActivity {
 
         init();
 
-        findViews();
+        findAndSetupViews();
 
         setUpViewPager();
 
@@ -110,7 +110,12 @@ public abstract class VerticalIntro extends AppCompatActivity {
 
                                 changeBottomViewBackgroundColor();
 
-                                long duration = (long) (FORWARD_SCROLL_ANIMATION_DURATION / (scrollSpeed));
+                                long duration;
+                                if (scrollSpeed == 0) {
+                                    duration = FORWARD_SCROLL_ANIMATION_DURATION;
+                                } else {
+                                    duration = (long) (FORWARD_SCROLL_ANIMATION_DURATION / (scrollSpeed));
+                                }
                                 Utils.makeTranslationYAnimation(bottomView, duration);
                             }
                         });
@@ -140,12 +145,14 @@ public abstract class VerticalIntro extends AppCompatActivity {
         if (verticalViewPager.getCurrentItem() == verticalIntroItemList.size() - 1) {
             if (setLastItemBottomViewColor() != null) {
                 currentBackgroundColor = setLastItemBottomViewColor();
+                //bottomView.setForeground(getDrawable(R.drawable.ripple_bg_white));
             } else {
                 Log.e(TAG, "Last item bottom view color is null");
                 currentBackgroundColor = verticalIntroItemList.get(0).getColor();
             }
 
         } else {
+            //bottomView.setForeground(null);
             currentBackgroundColor = ContextCompat.getColor(context,
                     verticalIntroItemList.get(verticalViewPager.getCurrentItem() + 1).getColor());
         }
@@ -166,7 +173,7 @@ public abstract class VerticalIntro extends AppCompatActivity {
         VerticalIntroPagerAdapter pagerAdapter = new VerticalIntroPagerAdapter(getSupportFragmentManager(), verticalIntroItemList);
         verticalViewPager.setAdapter(pagerAdapter);
         verticalViewPager.setScrollDurationFactor(SCROLL_DURATION_FACTOR_ON_CLICK);
-        verticalViewPager.setPageTransformer(false,new SimplePagerTransform());
+        verticalViewPager.setPageTransformer(false, new SimplePagerTransform());
     }
 
     private void getScrollSpeed() {
@@ -196,10 +203,23 @@ public abstract class VerticalIntro extends AppCompatActivity {
         });
     }
 
-    private void findViews() {
+    private void findAndSetupViews() {
         verticalViewPager = (VerticalViewPager) findViewById(R.id.vertical_view_pager);
         bottomView = (RelativeLayout) findViewById(R.id.bottom_view);
+        RelativeLayout skipContainer = (RelativeLayout) findViewById(R.id.skip_container);
+        skipContainer.setOnClickListener(skipClickListener);
+        int skipButtonTopMargin = Utils.getStatusBarHeight(this);
+        ((RelativeLayout.LayoutParams) skipContainer.getLayoutParams()).setMargins(0, skipButtonTopMargin, 0, 0);
     }
+
+    private View.OnClickListener skipClickListener = new View.OnClickListener() {
+        @Override
+        public void onClick(View view) {
+            int lastItem = verticalIntroItemList.size();
+            verticalViewPager.setCurrentItem(lastItem);
+            onSkipPressed(view);
+        }
+    };
 
     private boolean isGoingForward(int position) {
         return currentPosition < position;
@@ -212,4 +232,8 @@ public abstract class VerticalIntro extends AppCompatActivity {
     protected abstract void init();
 
     protected abstract Integer setLastItemBottomViewColor();
+
+    protected abstract void onSkipPressed(View view);
+
+    //protected abstract void OnSkipPressed();
 }

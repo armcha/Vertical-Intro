@@ -7,14 +7,14 @@
     android:orientation="vertical">
 
     <ImageView
+        android:id="@+id/image"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:layout_marginLeft="70dp"
-        android:layout_marginRight="70dp"
-        android:layout_marginTop="70dp"
+        android:layout_marginLeft="@dimen/vertical_intro_image_margin"
+        android:layout_marginRight="@dimen/vertical_intro_image_margin"
+        android:layout_marginTop="@dimen/vertical_intro_image_margin"
         android:layout_weight=".40"
-        android:id="@+id/image"
         android:adjustViewBounds="true"
         app:srcCompat="@drawable/android" />
 
@@ -28,12 +28,12 @@
         android:orientation="vertical">
 
         <TextView
+            android:id="@+id/title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="left"
             android:layout_marginLeft="@dimen/intro_margin"
             android:text="Welcome"
-            android:id="@+id/title"
             android:textColor="@android:color/white"
             android:textSize="@dimen/intro_tittle_text_size" />
 

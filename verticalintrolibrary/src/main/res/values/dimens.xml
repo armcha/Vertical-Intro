@@ -3,5 +3,6 @@
     <dimen name="intro_tittle_text_size">22sp</dimen>
     <dimen name="intro_message_text_size">18sp</dimen>
     <dimen name="intro_top_margin">20dp</dimen>
+    <dimen name="vertical_intro_image_margin">70dp</dimen>
     <bool name="isTablet">false</bool>
 </resources>

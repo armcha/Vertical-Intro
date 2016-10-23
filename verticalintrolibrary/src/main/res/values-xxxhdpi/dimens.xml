@@ -2,5 +2,6 @@
     <dimen name="intro_margin">70dp</dimen>
     <dimen name="intro_tittle_text_size">20sp</dimen>
     <dimen name="intro_message_text_size">16sp</dimen>
+    <dimen name="vertical_intro_image_margin">100dp</dimen>
     <bool name="isTablet">false</bool>
 </resources>

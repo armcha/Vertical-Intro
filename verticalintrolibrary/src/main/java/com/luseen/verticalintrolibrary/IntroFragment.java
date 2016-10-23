@@ -13,8 +13,6 @@ public class IntroFragment extends Fragment {
 
     private static final String VERTICAL_INTRO_ITEM_BUNDLE_KEY = "verticalIntroItemBundleKey";
 
-    private TextView text;
-
     public static IntroFragment newInstance(VerticalIntroItem verticalIntroItem) {
         Bundle args = new Bundle();
         args.putParcelable(VERTICAL_INTRO_ITEM_BUNDLE_KEY, verticalIntroItem);
@@ -28,7 +26,7 @@ public class IntroFragment extends Fragment {
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_simple, container, false);
         VerticalIntroItem verticalIntroItem = getArguments().getParcelable(VERTICAL_INTRO_ITEM_BUNDLE_KEY);
-        text = (TextView) view.findViewById(R.id.text);
+        TextView text = (TextView) view.findViewById(R.id.text);
         text.setText(verticalIntroItem.getText());
         view.setBackgroundColor(ContextCompat.getColor(getActivity(), verticalIntroItem.getColor()));
         return view;

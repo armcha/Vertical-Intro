@@ -2,6 +2,8 @@ package com.luseen.sample;
 
 
 import android.graphics.Color;
+import android.util.Log;
+import android.view.View;
 
 import com.luseen.verticalintrolibrary.VerticalIntro;
 import com.luseen.verticalintrolibrary.VerticalIntroItem;
@@ -20,6 +22,11 @@ public class TestActivity extends VerticalIntro {
 
     @Override
     protected Integer setLastItemBottomViewColor() {
-        return Color.CYAN;
+        return Color.GREEN;
+    }
+
+    @Override
+    protected void onSkipPressed(View view) {
+        Log.e("onSkipPressed ", "onSkipPressed");
     }
 }
