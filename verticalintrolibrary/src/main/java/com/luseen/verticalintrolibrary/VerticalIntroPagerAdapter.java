@@ -22,7 +22,7 @@ class VerticalIntroPagerAdapter extends FragmentPagerAdapter {
     @Override
     public Fragment getItem(int position) {
         VerticalIntroItem verticalIntroItem = verticalIntroItemList.get(position);
-        return IntroFragment.newInstance(verticalIntroItem);
+        return VerticalIntroFragment.newInstance(verticalIntroItem);
     }
 
     @Override

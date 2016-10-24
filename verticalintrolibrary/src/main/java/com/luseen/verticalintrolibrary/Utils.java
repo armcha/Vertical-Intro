@@ -1,10 +1,9 @@
 package com.luseen.verticalintrolibrary;
 
+import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.animation.ObjectAnimator;
 import android.content.Context;
-import android.util.Log;
-import android.view.MotionEvent;
 import android.view.View;
 
 /**
@@ -41,5 +40,29 @@ class Utils {
             result = context.getResources().getDimensionPixelSize(resourceId);
         }
         return result;
+    }
+
+    static void changeViewVisibilityWhitFade(final View view, final boolean reverse) {
+        float alphaValue;
+        if (reverse) {
+            view.setVisibility(View.VISIBLE);
+            alphaValue = 1f;
+        } else {
+            alphaValue = 0f;
+        }
+        view.animate()
+                .alpha(alphaValue)
+                .setDuration(300)
+                .setListener(new AnimatorListenerAdapter() {
+                    @Override
+                    public void onAnimationEnd(Animator animation) {
+                        super.onAnimationEnd(animation);
+                        if (reverse)
+                            view.setVisibility(View.VISIBLE);
+                        else
+                            view.setVisibility(View.GONE);
+                    }
+                })
+                .start();
     }
 }

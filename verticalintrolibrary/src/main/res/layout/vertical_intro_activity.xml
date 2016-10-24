@@ -10,14 +10,14 @@
         android:layout_height="match_parent" />
 
     <RelativeLayout
+        android:id="@+id/skip_container"
         android:layout_width="70dp"
         android:layout_height="40dp"
         android:layout_alignParentEnd="true"
         android:layout_alignParentRight="true"
         android:layout_alignParentTop="true"
-        android:clickable="true"
-        android:id="@+id/skip_container"
-        android:background="@drawable/ripple_bg_white">
+        android:background="@drawable/ripple_bg_white"
+        android:clickable="true">
 
         <TextView
             android:id="@+id/skip"
@@ -30,9 +30,13 @@
             android:textStyle="bold" />
     </RelativeLayout>
 
-
     <RelativeLayout
         android:id="@+id/bottom_view"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:layout_alignParentBottom="true" />
+
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="60dp"
         android:layout_alignParentBottom="true">

@@ -2,6 +2,7 @@ package com.luseen.verticalintrolibrary;
 
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
+import android.animation.ArgbEvaluator;
 import android.animation.ObjectAnimator;
 import android.content.Context;
 import android.os.Bundle;
@@ -31,8 +32,11 @@ public abstract class VerticalIntro extends AppCompatActivity {
     private RelativeLayout bottomView;
     private Context context;
     private boolean isChangedFromClick = false;
+    private boolean isSkipEnabled = true;
     private double scrollSpeed;
     private int currentPosition;
+
+    ArgbEvaluator argbEvaluator = new ArgbEvaluator();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,7 +62,7 @@ public abstract class VerticalIntro extends AppCompatActivity {
         public void onClick(View v) {
             int currentViewPagerItemPosition = verticalViewPager.getCurrentItem();
             if (currentViewPagerItemPosition == verticalIntroItemList.size() - 1) {
-                Log.e("onClick ", "Last Item reached");
+                onFragmentChanged(currentViewPagerItemPosition);
             } else {
                 isChangedFromClick = true;
                 verticalViewPager.setScrollDurationFactor(SCROLL_DURATION_FACTOR_ON_SCROLL);
@@ -77,6 +81,8 @@ public abstract class VerticalIntro extends AppCompatActivity {
                             public void onAnimationEnd(Animator animation) {
                                 super.onAnimationEnd(animation);
                                 verticalViewPager.setScrollDurationFactor(SCROLL_DURATION_FACTOR_ON_CLICK);
+//                                bottomView.setEnabled(true);
+//                                bottomView.setClickable(true);
                             }
                         });
                         objectAnimator.start();
@@ -90,11 +96,13 @@ public abstract class VerticalIntro extends AppCompatActivity {
         @Override
         public void onPageSelected(final int position) {
             super.onPageSelected(position);
+            onFragmentChanged(position);
             boolean isLastPosition = position == verticalIntroItemList.size() - 1;
             if (isLastPosition) {
-                skipContainer.setVisibility(View.GONE);
+                Utils.changeViewVisibilityWhitFade(skipContainer, false);
+                verticalViewPager.setScrollDurationFactor(SCROLL_DURATION_FACTOR_ON_CLICK);
             } else {
-                skipContainer.setVisibility(View.VISIBLE);
+                Utils.changeViewVisibilityWhitFade(skipContainer, true);
             }
 
             if (!isChangedFromClick) {
@@ -154,14 +162,11 @@ public abstract class VerticalIntro extends AppCompatActivity {
         if (verticalViewPager.getCurrentItem() == verticalIntroItemList.size() - 1) {
             if (setLastItemBottomViewColor() != null) {
                 currentBackgroundColor = setLastItemBottomViewColor();
-                //bottomView.setForeground(getDrawable(R.drawable.ripple_bg_white));
             } else {
                 Log.e(TAG, "Last item bottom view color is null");
                 currentBackgroundColor = verticalIntroItemList.get(0).getColor();
             }
-
         } else {
-            //bottomView.setForeground(null);
             currentBackgroundColor = ContextCompat.getColor(context,
                     verticalIntroItemList.get(verticalViewPager.getCurrentItem() + 1).getColor());
         }
@@ -227,6 +232,7 @@ public abstract class VerticalIntro extends AppCompatActivity {
         @Override
         public void onClick(View view) {
             int lastItem = verticalIntroItemList.size();
+            verticalViewPager.setScrollDurationFactor(0.5f);
             verticalViewPager.setCurrentItem(lastItem);
             onSkipPressed(view);
         }
@@ -246,5 +252,5 @@ public abstract class VerticalIntro extends AppCompatActivity {
 
     protected abstract void onSkipPressed(View view);
 
-    //protected abstract void OnSkipPressed();
+    protected abstract void onFragmentChanged(int position);
 }

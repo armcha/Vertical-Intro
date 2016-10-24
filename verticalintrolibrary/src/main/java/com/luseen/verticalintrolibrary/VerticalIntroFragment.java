@@ -9,14 +9,14 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 
-public class IntroFragment extends Fragment {
+public class VerticalIntroFragment extends Fragment {
 
     private static final String VERTICAL_INTRO_ITEM_BUNDLE_KEY = "verticalIntroItemBundleKey";
 
-    public static IntroFragment newInstance(VerticalIntroItem verticalIntroItem) {
+    public static VerticalIntroFragment newInstance(VerticalIntroItem verticalIntroItem) {
         Bundle args = new Bundle();
         args.putParcelable(VERTICAL_INTRO_ITEM_BUNDLE_KEY, verticalIntroItem);
-        IntroFragment fragment = new IntroFragment();
+        VerticalIntroFragment fragment = new VerticalIntroFragment();
         fragment.setArguments(args);
         return fragment;
     }
