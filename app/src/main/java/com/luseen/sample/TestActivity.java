@@ -15,37 +15,40 @@ public class TestActivity extends VerticalIntro {
         addIntroItem(new VerticalIntroItem.Builder()
                 .backgroundColor(R.color.colorAccent)
                 .image(R.drawable.android)
-                .title("A")
-                .text("B")
+                .title("Lorem Ipsum")
+                .text("Lorem Ipsum is simply dummy text of the printing and typesetting industry.")
                 .build());
 
         addIntroItem(new VerticalIntroItem.Builder()
                 .backgroundColor(R.color.color2)
                 .image(android.R.drawable.bottom_bar)
-                .title("C")
-                .text("D")
+                .title("Lorem Ipsum")
+                .text("Lorem Ipsum is simply dummy text of the printing and typesetting industry.")
                 .build());
 
         addIntroItem(new VerticalIntroItem.Builder()
                 .backgroundColor(R.color.colorPrimary)
                 .image(R.drawable.android)
-                .title("E")
-                .text("F")
+                .title("Lorem Ipsum")
+                .text("Lorem Ipsum is simply dummy text of the printing and typesetting industry.")
                 .build());
 
         addIntroItem(new VerticalIntroItem.Builder()
                 .backgroundColor(R.color.colorPrimaryDark)
                 .image(R.drawable.android)
-                .title("G")
-                .text("H")
+                .title("Lorem Ipsum")
+                .text("Lorem Ipsum is simply dummy text of the printing and typesetting industry.")
                 .build());
 
         addIntroItem(new VerticalIntroItem.Builder()
                 .backgroundColor(R.color.colorPrimary)
                 .image(R.drawable.android)
-                .title("J")
-                .text("K")
+                .title("Lorem Ipsum")
+                .text("Lorem Ipsum is simply dummy text of the printing and typesetting industry.")
                 .build());
+
+        setSkipEnabled(true);
+        setVibrateEnabled(true);
     }
 
     @Override
