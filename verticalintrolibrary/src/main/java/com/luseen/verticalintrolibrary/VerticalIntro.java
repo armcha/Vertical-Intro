@@ -19,7 +19,7 @@ import java.util.List;
 
 public abstract class VerticalIntro extends AppCompatActivity {
 
-    private static final String TAG = "VerticalIntro";
+    static final String TAG = "VerticalIntro";
     private static final double SCROLL_DURATION_FACTOR_ON_SCROLL = 4;
     private static final double SCROLL_DURATION_FACTOR_ON_CLICK = 1.5;
     private static final int FORWARD_SCROLL_ANIMATION_DURATION = 800;
@@ -97,6 +97,7 @@ public abstract class VerticalIntro extends AppCompatActivity {
         public void onPageSelected(final int position) {
             super.onPageSelected(position);
             onFragmentChanged(position);
+
             boolean isLastPosition = position == verticalIntroItemList.size() - 1;
             if (isLastPosition) {
                 Utils.changeViewVisibilityWhitFade(skipContainer, false);
@@ -106,19 +107,6 @@ public abstract class VerticalIntro extends AppCompatActivity {
             }
 
             if (!isChangedFromClick) {
-//                if (verticalViewPager.getCurrentItem() == verticalIntroItemList.size()) {
-//                    Utils.makeTranslationYAnimation(bottomView, new AnimatorListenerAdapter() {
-//                        @Override
-//                        public void onAnimationEnd(Animator animation) {
-//                            super.onAnimationEnd(animation);
-//                            int currentBackgroundColor = ContextCompat.getColor(context,
-//                                    verticalIntroItemList.get(position + 1).getColor());
-//                            bottomView.setBackgroundColor(currentBackgroundColor);
-//                            long duration = (long) (FORWARD_SCROLL_ANIMATION_DURATION / (scrollSpeed));
-//                            Utils.makeTranslationYAnimation(bottomView, duration);
-//                        }
-//                    });
-//                } else {
                 if (isGoingForward(position)) {
                     Utils.makeTranslationYAnimation(bottomView, new AnimatorListenerAdapter() {
                         @Override
@@ -143,7 +131,7 @@ public abstract class VerticalIntro extends AppCompatActivity {
                         public void onAnimationEnd(Animator animation) {
                             super.onAnimationEnd(animation);
                             int currentBackgroundColor = ContextCompat.getColor(context,
-                                    verticalIntroItemList.get(position + 1).getColor());
+                                    verticalIntroItemList.get(position + 1).getBackgroundColor());
                             bottomView.setBackgroundColor(currentBackgroundColor);
                             bottomView.setTranslationY(0);
                         }
@@ -164,13 +152,12 @@ public abstract class VerticalIntro extends AppCompatActivity {
                 currentBackgroundColor = setLastItemBottomViewColor();
             } else {
                 Log.e(TAG, "Last item bottom view color is null");
-                currentBackgroundColor = verticalIntroItemList.get(0).getColor();
+                currentBackgroundColor = verticalIntroItemList.get(0).getBackgroundColor();
             }
         } else {
-            currentBackgroundColor = ContextCompat.getColor(context,
-                    verticalIntroItemList.get(verticalViewPager.getCurrentItem() + 1).getColor());
+            currentBackgroundColor = verticalIntroItemList.get(verticalViewPager.getCurrentItem() + 1).getBackgroundColor();
         }
-        bottomView.setBackgroundColor(currentBackgroundColor);
+        bottomView.setBackgroundColor(ContextCompat.getColor(context,currentBackgroundColor));
     }
 
     private void addListeners() {
@@ -179,7 +166,14 @@ public abstract class VerticalIntro extends AppCompatActivity {
     }
 
     private void setUpBottomView() {
-        int firstPageBackgroundColor = verticalIntroItemList.get(1).getColor();
+        int firstPageBackgroundColor;
+        if (verticalIntroItemList.size() > 1) {
+            firstPageBackgroundColor = verticalIntroItemList.get(1).getBackgroundColor();
+        } else if (setLastItemBottomViewColor() != null) {
+            firstPageBackgroundColor = setLastItemBottomViewColor();
+        } else {
+            firstPageBackgroundColor = verticalIntroItemList.get(0).getBackgroundColor();
+        }
         bottomView.setBackgroundColor(ContextCompat.getColor(context, firstPageBackgroundColor));
     }
 
@@ -187,7 +181,6 @@ public abstract class VerticalIntro extends AppCompatActivity {
         VerticalIntroPagerAdapter pagerAdapter = new VerticalIntroPagerAdapter(getSupportFragmentManager(), verticalIntroItemList);
         verticalViewPager.setAdapter(pagerAdapter);
         verticalViewPager.setScrollDurationFactor(SCROLL_DURATION_FACTOR_ON_CLICK);
-        verticalViewPager.setPageTransformer(false, new SimplePagerTransform());
     }
 
     private void getScrollSpeed() {
@@ -218,11 +211,19 @@ public abstract class VerticalIntro extends AppCompatActivity {
     }
 
     private void findAndSetupViews() {
+        if (verticalIntroItemList.size() == 0) {
+            throw new NullPointerException(TAG + " You need at least one item");
+        }
+
+        if (verticalIntroItemList.size() == 1) {
+            skipContainer.setVisibility(View.GONE);
+        }
+
         verticalViewPager = (VerticalViewPager) findViewById(R.id.vertical_view_pager);
         bottomView = (RelativeLayout) findViewById(R.id.bottom_view);
         skipContainer = (RelativeLayout) findViewById(R.id.skip_container);
         skipContainer.setOnClickListener(skipClickListener);
-        int lastFragmentColor = verticalIntroItemList.get(verticalIntroItemList.size() - 1).getColor();
+        int lastFragmentColor = verticalIntroItemList.get(verticalIntroItemList.size() - 1).getBackgroundColor();
         verticalViewPager.setBackgroundColor(ContextCompat.getColor(this, lastFragmentColor));
         int skipButtonTopMargin = Utils.getStatusBarHeight(this);
         ((RelativeLayout.LayoutParams) skipContainer.getLayoutParams()).setMargins(0, skipButtonTopMargin, 0, 0);
@@ -242,7 +243,7 @@ public abstract class VerticalIntro extends AppCompatActivity {
         return currentPosition < position;
     }
 
-    protected void addVerticalIntroItem(VerticalIntroItem verticalIntroItem) {
+    protected void addIntroItem(VerticalIntroItem verticalIntroItem) {
         verticalIntroItemList.add(verticalIntroItem);
     }
 

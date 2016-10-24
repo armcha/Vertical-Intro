@@ -5,20 +5,17 @@ import android.support.v4.view.ViewPager;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.view.MotionEvent;
-import android.view.View;
 import android.view.animation.DecelerateInterpolator;
 
 import java.lang.reflect.Field;
-import java.lang.reflect.Method;
 
 /**
  * Created by Chatikyan on 18.10.2016.
  */
 
-public class VerticalViewPager extends ViewPager {
+class VerticalViewPager extends ViewPager {
 
     private ScrollerCustomDuration mScroller;
-    private boolean isPagingEnabled = true;
 
     public VerticalViewPager(Context context) {
         super(context);
@@ -30,22 +27,16 @@ public class VerticalViewPager extends ViewPager {
         init();
     }
 
-    public void setPagingEnabled(boolean enabled) {
-        this.isPagingEnabled = enabled;
-    }
-
     @Override
     public boolean onInterceptTouchEvent(MotionEvent ev) {
         boolean intercepted = super.onInterceptTouchEvent(swapXY(ev));
-        swapXY(ev); // return touch coordinates to original reference frame for any child views
-        return this.isPagingEnabled && intercepted;
-        //return  intercepted;
+        swapXY(ev);
+        return intercepted;
     }
 
     @Override
     public boolean onTouchEvent(MotionEvent ev) {
-        return this.isPagingEnabled && super.onTouchEvent(swapXY(ev));
-        //return super.onTouchEvent(swapXY(ev));
+        return super.onTouchEvent(swapXY(ev));
     }
 
     @Override
@@ -53,10 +44,6 @@ public class VerticalViewPager extends ViewPager {
         super.onPageScrolled(position, offset, offsetPixels);
     }
 
-    /**
-     * Override the Scroller instance with our own class so we can change the
-     * duration
-     */
     private void init() {
         setPageTransformer(true, new VerticalPageTransformer());
         setOverScrollMode(OVER_SCROLL_NEVER);
@@ -67,14 +54,13 @@ public class VerticalViewPager extends ViewPager {
                     new DecelerateInterpolator());
             scroller.set(this, mScroller);
         } catch (Exception e) {
-            Log.e("postInitViewPager ", "" + e.getMessage());
+            Log.e(VerticalIntro.TAG, "" + e.getMessage());
         }
     }
 
     private MotionEvent swapXY(MotionEvent ev) {
         float width = getWidth();
         float height = getHeight();
-
         float newX = (ev.getY() / height) * width;
         float newY = (ev.getX() / width) * height;
 
@@ -83,9 +69,6 @@ public class VerticalViewPager extends ViewPager {
         return ev;
     }
 
-    /**
-     * Set the factor by which the duration will change
-     */
     public void setScrollDurationFactor(double scrollFactor) {
         mScroller.setScrollDurationFactor(scrollFactor);
     }

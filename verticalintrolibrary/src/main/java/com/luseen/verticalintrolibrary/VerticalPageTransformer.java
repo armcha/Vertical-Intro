@@ -1,33 +1,40 @@
 package com.luseen.verticalintrolibrary;
 
 import android.support.v4.view.ViewPager;
+import android.util.Log;
 import android.view.View;
 
 /**
  * Created by Chatikyan on 18.10.2016.
  */
 
-public class VerticalPageTransformer implements ViewPager.PageTransformer {
+class VerticalPageTransformer implements ViewPager.PageTransformer {
 
     @Override
     public void transformPage(View view, float position) {
 
-        if (position < -1) { // [-Infinity,-1)
-            // This page is way off-screen to the left.
+        View text = view.findViewById(R.id.text);
+        View title = view.findViewById(R.id.title);
+        View image = view.findViewById(R.id.image);
+
+        if (position < -1) {
             view.setAlpha(0);
 
-        } else if (position <= 1) { // [-1,1]
+        } else if (position <= 1) {
             view.setAlpha(1);
-
-            // Counteract the default slide transition
             view.setTranslationX(view.getWidth() * -position);
 
-            //set Y position to swipe in from top
             float yPosition = position * view.getHeight();
             view.setTranslationY(yPosition);
 
-        } else { // (1,+Infinity]
-            // This page is way off-screen to the right.
+            text.setAlpha(1.0F - Math.abs(position * 2));
+            image.setAlpha(1.0F - Math.abs(position * 2));
+            title.setAlpha(1.0F - Math.abs(position * 2));
+
+            float imageHeight = image.getHeight();
+
+            image.setTranslationY((position * imageHeight * 1.2f));
+        } else {
             view.setAlpha(0);
         }
     }

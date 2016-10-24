@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/backgroundColor"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -16,7 +16,7 @@
         android:layout_marginTop="@dimen/vertical_intro_image_margin"
         android:layout_weight=".40"
         android:adjustViewBounds="true"
-        app:srcCompat="@drawable/android" />
+        tools:ignore="ContentDescription" />
 
     <LinearLayout
         android:layout_width="wrap_content"
@@ -31,9 +31,9 @@
             android:id="@+id/title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="left"
+            android:layout_gravity="start"
             android:layout_marginLeft="@dimen/intro_margin"
-            android:text="Welcome"
+            android:layout_marginStart="@dimen/intro_margin"
             android:textColor="@android:color/white"
             android:textSize="@dimen/intro_tittle_text_size" />
 
@@ -45,7 +45,6 @@
             android:layout_marginLeft="@dimen/intro_margin"
             android:layout_marginRight="@dimen/intro_margin"
             android:layout_marginTop="30dp"
-            android:text="Discover Lively Cambridge, events you may like, new and attractive things to do in our beautiful city and surrounding areas, be a part of the best events and don’t miss shows, concerts, parties, festivals and much more."
             android:textColor="@android:color/white"
             android:textSize="@dimen/intro_message_text_size" />
     </LinearLayout>

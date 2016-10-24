@@ -24,7 +24,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
-            android:text="SKIP"
+            android:text="@string/skip"
             android:textColor="@android:color/white"
             android:textSize="17sp"
             android:textStyle="bold" />
@@ -46,7 +46,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
-            android:text="NEXT"
+            android:text="@string/next"
             android:textColor="@android:color/white"
             android:textSize="17sp"
             android:textStyle="bold" />

@@ -1,4 +1,6 @@
 ﻿<resources>
     <string name="app_name">Library</string>
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="skip">SKIP</string>
+    <string name="next">NEXT</string>
 </resources>

@@ -3,9 +3,11 @@ package com.luseen.verticalintrolibrary;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 
@@ -26,9 +28,17 @@ public class VerticalIntroFragment extends Fragment {
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_simple, container, false);
         VerticalIntroItem verticalIntroItem = getArguments().getParcelable(VERTICAL_INTRO_ITEM_BUNDLE_KEY);
-        TextView text = (TextView) view.findViewById(R.id.text);
-        text.setText(verticalIntroItem.getText());
-        view.setBackgroundColor(ContextCompat.getColor(getActivity(), verticalIntroItem.getColor()));
+        if (verticalIntroItem != null) {
+            TextView text = (TextView) view.findViewById(R.id.text);
+            TextView title = (TextView) view.findViewById(R.id.title);
+            ImageView image = (ImageView) view.findViewById(R.id.image);
+            text.setText(verticalIntroItem.getText());
+            title.setText(verticalIntroItem.getTitle());
+            image.setImageResource(verticalIntroItem.getImage());
+            view.setBackgroundColor(ContextCompat.getColor(getActivity(), verticalIntroItem.getBackgroundColor()));
+        } else {
+            Log.e(VerticalIntro.TAG, "Something went wrong");
+        }
         return view;
     }
 }

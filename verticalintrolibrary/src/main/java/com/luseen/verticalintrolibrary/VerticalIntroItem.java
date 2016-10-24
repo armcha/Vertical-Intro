@@ -2,7 +2,6 @@ package com.luseen.verticalintrolibrary;
 
 import android.os.Parcel;
 import android.os.Parcelable;
-import android.support.annotation.IntegerRes;
 
 /**
  * Created by Chatikyan on 19.10.2016.
@@ -10,46 +9,52 @@ import android.support.annotation.IntegerRes;
 
 public class VerticalIntroItem implements Parcelable {
 
+    private String title;
     private String text;
-    @IntegerRes
     private int image;
-    @IntegerRes
-    private int color;
+    private int backgroundColor;
+
+    private VerticalIntroItem(Builder builder) {
+        this.title = builder.title;
+        this.text = builder.text;
+        this.image = builder.image;
+        this.backgroundColor = builder.backgroundColor;
+    }
+
+    public String getTitle() {
+        return title;
+    }
 
     public String getText() {
         return text;
-    }
-
-    public void setText(String text) {
-        this.text = text;
     }
 
     public int getImage() {
         return image;
     }
 
-    public void setImage(int image) {
-        this.image = image;
+    public int getBackgroundColor() {
+        return backgroundColor;
     }
 
-    public int getColor() {
-        return color;
+    @Override
+    public int describeContents() {
+        return 0;
     }
 
-    public void setColor(int color) {
-        this.color = color;
-    }
-
-    public VerticalIntroItem(int image, int color, String text) {
-        this.image = image;
-        this.color = color;
-        this.text = text;
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(title);
+        dest.writeString(text);
+        dest.writeInt(image);
+        dest.writeInt(backgroundColor);
     }
 
     private VerticalIntroItem(Parcel in) {
+        title = in.readString();
         text = in.readString();
         image = in.readInt();
-        color = in.readInt();
+        backgroundColor = in.readInt();
     }
 
     public static final Creator<VerticalIntroItem> CREATOR = new Creator<VerticalIntroItem>() {
@@ -64,15 +69,37 @@ public class VerticalIntroItem implements Parcelable {
         }
     };
 
-    @Override
-    public int describeContents() {
-        return 0;
-    }
+    public static class Builder {
+        private String title;
+        private String text;
+        private int image;
+        private int backgroundColor;
 
-    @Override
-    public void writeToParcel(Parcel dest, int flags) {
-        dest.writeString(text);
-        dest.writeInt(image);
-        dest.writeInt(color);
+        public Builder() {
+        }
+
+        public Builder title(String title) {
+            this.title = title;
+            return this;
+        }
+
+        public Builder text(String text) {
+            this.text = text;
+            return this;
+        }
+
+        public Builder backgroundColor(int backgroundColor) {
+            this.backgroundColor = backgroundColor;
+            return this;
+        }
+
+        public Builder image(int image) {
+            this.image = image;
+            return this;
+        }
+
+        public VerticalIntroItem build() {
+            return new VerticalIntroItem(this);
+        }
     }
 }
