@@ -23,9 +23,11 @@ public abstract class VerticalIntro extends AppCompatActivity {
     private static final double SCROLL_DURATION_FACTOR_ON_CLICK = 1.5;
     private static final int FORWARD_SCROLL_ANIMATION_DURATION = 800;
     private static final int BACKWARD_SCROLL_ANIMATION_DURATION = 600;
+    private static final int DEFAULT_ANIMATION_DURATION = 500;
 
     private List<VerticalIntroItem> verticalIntroItemList = new ArrayList<>();
     private VerticalViewPager verticalViewPager;
+    private RelativeLayout skipContainer;
     private RelativeLayout bottomView;
     private Context context;
     private boolean isChangedFromClick = false;
@@ -88,51 +90,58 @@ public abstract class VerticalIntro extends AppCompatActivity {
         @Override
         public void onPageSelected(final int position) {
             super.onPageSelected(position);
+            boolean isLastPosition = position == verticalIntroItemList.size() - 1;
+            if (isLastPosition) {
+                skipContainer.setVisibility(View.GONE);
+            } else {
+                skipContainer.setVisibility(View.VISIBLE);
+            }
+
             if (!isChangedFromClick) {
-                if (verticalViewPager.getCurrentItem() == verticalIntroItemList.size()) {
+//                if (verticalViewPager.getCurrentItem() == verticalIntroItemList.size()) {
+//                    Utils.makeTranslationYAnimation(bottomView, new AnimatorListenerAdapter() {
+//                        @Override
+//                        public void onAnimationEnd(Animator animation) {
+//                            super.onAnimationEnd(animation);
+//                            int currentBackgroundColor = ContextCompat.getColor(context,
+//                                    verticalIntroItemList.get(position + 1).getColor());
+//                            bottomView.setBackgroundColor(currentBackgroundColor);
+//                            long duration = (long) (FORWARD_SCROLL_ANIMATION_DURATION / (scrollSpeed));
+//                            Utils.makeTranslationYAnimation(bottomView, duration);
+//                        }
+//                    });
+//                } else {
+                if (isGoingForward(position)) {
                     Utils.makeTranslationYAnimation(bottomView, new AnimatorListenerAdapter() {
+                        @Override
+                        public void onAnimationEnd(Animator animation) {
+                            super.onAnimationEnd(animation);
+
+                            changeBottomViewBackgroundColor();
+
+                            long duration;
+                            if (scrollSpeed == 0) {
+                                duration = DEFAULT_ANIMATION_DURATION;
+                            } else {
+                                duration = (long) (FORWARD_SCROLL_ANIMATION_DURATION / (scrollSpeed));
+                            }
+                            Utils.makeTranslationYAnimation(bottomView, duration);
+                        }
+                    });
+                } else {
+                    long duration = (long) (BACKWARD_SCROLL_ANIMATION_DURATION / (scrollSpeed));
+                    Utils.makeTranslationYAnimation(bottomView, duration, new AnimatorListenerAdapter() {
                         @Override
                         public void onAnimationEnd(Animator animation) {
                             super.onAnimationEnd(animation);
                             int currentBackgroundColor = ContextCompat.getColor(context,
                                     verticalIntroItemList.get(position + 1).getColor());
                             bottomView.setBackgroundColor(currentBackgroundColor);
-                            long duration = (long) (FORWARD_SCROLL_ANIMATION_DURATION / (scrollSpeed));
-                            Utils.makeTranslationYAnimation(bottomView, duration);
+                            bottomView.setTranslationY(0);
                         }
                     });
-                } else {
-                    if (isGoingForward(position)) {
-                        Utils.makeTranslationYAnimation(bottomView, new AnimatorListenerAdapter() {
-                            @Override
-                            public void onAnimationEnd(Animator animation) {
-                                super.onAnimationEnd(animation);
-
-                                changeBottomViewBackgroundColor();
-
-                                long duration;
-                                if (scrollSpeed == 0) {
-                                    duration = FORWARD_SCROLL_ANIMATION_DURATION;
-                                } else {
-                                    duration = (long) (FORWARD_SCROLL_ANIMATION_DURATION / (scrollSpeed));
-                                }
-                                Utils.makeTranslationYAnimation(bottomView, duration);
-                            }
-                        });
-                    } else {
-                        long duration = (long) (BACKWARD_SCROLL_ANIMATION_DURATION / (scrollSpeed));
-                        Utils.makeTranslationYAnimation(bottomView, duration, new AnimatorListenerAdapter() {
-                            @Override
-                            public void onAnimationEnd(Animator animation) {
-                                super.onAnimationEnd(animation);
-                                int currentBackgroundColor = ContextCompat.getColor(context,
-                                        verticalIntroItemList.get(position + 1).getColor());
-                                bottomView.setBackgroundColor(currentBackgroundColor);
-                                bottomView.setTranslationY(0);
-                            }
-                        });
-                    }
                 }
+
             } else {
                 isChangedFromClick = false;
             }
@@ -206,8 +215,10 @@ public abstract class VerticalIntro extends AppCompatActivity {
     private void findAndSetupViews() {
         verticalViewPager = (VerticalViewPager) findViewById(R.id.vertical_view_pager);
         bottomView = (RelativeLayout) findViewById(R.id.bottom_view);
-        RelativeLayout skipContainer = (RelativeLayout) findViewById(R.id.skip_container);
+        skipContainer = (RelativeLayout) findViewById(R.id.skip_container);
         skipContainer.setOnClickListener(skipClickListener);
+        int lastFragmentColor = verticalIntroItemList.get(verticalIntroItemList.size() - 1).getColor();
+        verticalViewPager.setBackgroundColor(ContextCompat.getColor(this, lastFragmentColor));
         int skipButtonTopMargin = Utils.getStatusBarHeight(this);
         ((RelativeLayout.LayoutParams) skipContainer.getLayoutParams()).setMargins(0, skipButtonTopMargin, 0, 0);
     }
