@@ -4,7 +4,9 @@ import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.animation.ObjectAnimator;
 import android.content.Context;
+import android.os.Build;
 import android.view.View;
+import android.widget.TextView;
 
 /**
  * Created by Chatikyan on 20.10.2016.
@@ -35,9 +37,11 @@ class Utils {
 
     static int getStatusBarHeight(Context context) {
         int result = 0;
-        int resourceId = context.getResources().getIdentifier("status_bar_height", "dimen", "android");
-        if (resourceId > 0) {
-            result = context.getResources().getDimensionPixelSize(resourceId);
+        if (Build.VERSION.SDK_INT > Build.VERSION_CODES.LOLLIPOP) {
+            int resourceId = context.getResources().getIdentifier("status_bar_height", "dimen", "android");
+            if (resourceId > 0) {
+                result = context.getResources().getDimensionPixelSize(resourceId);
+            }
         }
         return result;
     }
@@ -61,6 +65,32 @@ class Utils {
                             view.setVisibility(View.VISIBLE);
                         else
                             view.setVisibility(View.GONE);
+                    }
+                })
+                .start();
+    }
+
+    static void changeTextWhitFade(final TextView textView, final String text) {
+        textView.animate()
+                .setDuration(200)
+                .alpha(0)
+                .setListener(new AnimatorListenerAdapter() {
+                    @Override
+                    public void onAnimationEnd(Animator animation) {
+                        super.onAnimationEnd(animation);
+                        textView.setAlpha(0);
+                        textView.setText(text);
+                        textView.animate()
+                                .setDuration(200)
+                                .alpha(1)
+                                .setListener(new AnimatorListenerAdapter() {
+                                    @Override
+                                    public void onAnimationEnd(Animator animation) {
+                                        super.onAnimationEnd(animation);
+                                        textView.setAlpha(1);
+                                    }
+                                })
+                                .start();
                     }
                 })
                 .start();

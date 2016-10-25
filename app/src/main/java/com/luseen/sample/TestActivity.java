@@ -14,14 +14,22 @@ public class TestActivity extends VerticalIntro {
 
         addIntroItem(new VerticalIntroItem.Builder()
                 .backgroundColor(R.color.colorAccent)
-                .image(R.drawable.android)
+                .image(R.drawable.intro_second_vector)
                 .title("Lorem Ipsum")
                 .text("Lorem Ipsum is simply dummy text of the printing and typesetting industry.")
                 .build());
 
         addIntroItem(new VerticalIntroItem.Builder()
                 .backgroundColor(R.color.color2)
-                .image(android.R.drawable.bottom_bar)
+                .image(R.drawable.four)
+                .title("Lorem Ipsum")
+                .text("Lorem Ipsum is simply dummy text of the printing and typesetting industry." +
+                        "Lorem Ipsum is simply dummy text of the printing and typesetting industry.")
+                .build());
+
+        addIntroItem(new VerticalIntroItem.Builder()
+                .backgroundColor(R.color.color3)
+                .image(R.drawable.intro_third_vector)
                 .title("Lorem Ipsum")
                 .text("Lorem Ipsum is simply dummy text of the printing and typesetting industry.")
                 .build());
@@ -34,17 +42,12 @@ public class TestActivity extends VerticalIntro {
                 .build());
 
         addIntroItem(new VerticalIntroItem.Builder()
-                .backgroundColor(R.color.colorPrimaryDark)
-                .image(R.drawable.android)
+                .backgroundColor(R.color.color3)
+                .image(R.drawable.new_intro)
                 .title("Lorem Ipsum")
-                .text("Lorem Ipsum is simply dummy text of the printing and typesetting industry.")
-                .build());
-
-        addIntroItem(new VerticalIntroItem.Builder()
-                .backgroundColor(R.color.colorPrimary)
-                .image(R.drawable.android)
-                .title("Lorem Ipsum")
-                .text("Lorem Ipsum is simply dummy text of the printing and typesetting industry.")
+                .text("Lorem Ipsum is simply dummy text of the printing and typesetting industry." +
+                        "Lorem Ipsum is simply dummy text of the printing and typesetting industry." +
+                        "Lorem Ipsum is simply dummy text of the printing and typesetting industry.")
                 .build());
 
         setSkipEnabled(true);
@@ -53,7 +56,7 @@ public class TestActivity extends VerticalIntro {
 
     @Override
     protected Integer setLastItemBottomViewColor() {
-        return R.color.color1;
+        return R.color.colorAccent;
     }
 
     @Override
@@ -64,5 +67,10 @@ public class TestActivity extends VerticalIntro {
     @Override
     protected void onFragmentChanged(int position) {
         Log.e("onFragmentChanged ", "" + position);
+    }
+
+    @Override
+    protected void onDonePressed() {
+        Log.e("onDonePressed ", "onDonePressed");
     }
 }
