@@ -36,8 +36,9 @@ public abstract class VerticalIntro extends AppCompatActivity {
     private boolean isChangedFromClick = false;
     private boolean isVibrateEnabled = true;
     private boolean isSkipEnabled = true;
-    private double scrollSpeed;
     private int currentPosition;
+    private double scrollSpeed;
+    private float startYPoint, endYPoint;
 
 
     @Override
@@ -68,6 +69,27 @@ public abstract class VerticalIntro extends AppCompatActivity {
             skipContainer.setVisibility(View.GONE);
         }
     }
+
+    private View.OnTouchListener bottomButtonOnTouchListener = new View.OnTouchListener() {
+        @Override
+        public boolean onTouch(View view, MotionEvent motionEvent) {
+            switch (motionEvent.getAction()) {
+                case MotionEvent.ACTION_DOWN: {
+                    startYPoint = motionEvent.getY();
+                    break;
+                }
+                case MotionEvent.ACTION_UP: {
+                    endYPoint = motionEvent.getY();
+
+                    if (startYPoint > endYPoint) {
+                        bottomView.performClick();
+                    }
+                    break;
+                }
+            }
+            return false;
+        }
+    };
 
     private View.OnClickListener bottomButtonClickListener = new View.OnClickListener() {
         @Override
@@ -191,6 +213,7 @@ public abstract class VerticalIntro extends AppCompatActivity {
     private void addListeners() {
         verticalViewPager.addOnPageChangeListener(pageChangeListener);
         bottomView.setOnClickListener(bottomButtonClickListener);
+        bottomView.setOnTouchListener(bottomButtonOnTouchListener);
     }
 
     private void setUpBottomView() {
@@ -246,7 +269,6 @@ public abstract class VerticalIntro extends AppCompatActivity {
         if (verticalIntroItemList.size() == 1) {
             skipContainer.setVisibility(View.GONE);
         }
-
         verticalViewPager = (VerticalViewPager) findViewById(R.id.vertical_view_pager);
         bottomView = (RelativeLayout) findViewById(R.id.bottom_view);
         skipContainer = (RelativeLayout) findViewById(R.id.skip_container);
