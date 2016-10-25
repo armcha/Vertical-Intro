@@ -3,6 +3,7 @@ package com.luseen.sample;
 
 import android.util.Log;
 import android.view.View;
+import android.widget.Toast;
 
 import com.luseen.verticalintrolibrary.VerticalIntro;
 import com.luseen.verticalintrolibrary.VerticalIntroItem;
@@ -71,6 +72,7 @@ public class TestActivity extends VerticalIntro {
 
     @Override
     protected void onDonePressed() {
+        Toast.makeText(this, "Done", Toast.LENGTH_SHORT).show();
         Log.e("onDonePressed ", "onDonePressed");
     }
 }
