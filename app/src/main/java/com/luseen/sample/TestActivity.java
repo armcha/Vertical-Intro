@@ -17,7 +17,12 @@ public class TestActivity extends VerticalIntro {
                 .backgroundColor(R.color.colorAccent)
                 .image(R.drawable.intro_second_vector)
                 .title("Lorem Ipsum")
-                .text("Lorem Ipsum is simply dummy text of the printing and typesetting industry.")
+                .text("Lorem Ipsum is simply dummy text of the printing and typesetting industry."+
+                        "Lorem Ipsum is simply dummy text of the printing and typesetting industry."+
+                        "Lorem Ipsum is simply dummy text of the printing and typesetting industry."+
+                        "Lorem Ipsum is simply dummy text of the printing and typesetting industry."+
+                        "Lorem Ipsum is simply dummy text of the printing and typesetting industry."
+                )
                 .build());
 
         addIntroItem(new VerticalIntroItem.Builder()
@@ -28,12 +33,12 @@ public class TestActivity extends VerticalIntro {
                         "Lorem Ipsum is simply dummy text of the printing and typesetting industry.")
                 .build());
 
-        addIntroItem(new VerticalIntroItem.Builder()
-                .backgroundColor(R.color.color3)
-                .image(R.drawable.intro_third_vector)
-                .title("Lorem Ipsum")
-                .text("Lorem Ipsum is simply dummy text of the printing and typesetting industry.")
-                .build());
+//        addIntroItem(new VerticalIntroItem.Builder()
+//                .backgroundColor(R.color.color3)
+//                .image(R.drawable.intro_third_vector)
+//                .title("Lorem Ipsum")
+//                .text("Lorem Ipsum is simply dummy text of the printing and typesetting industry.")
+//                .build());
 
         addIntroItem(new VerticalIntroItem.Builder()
                 .backgroundColor(R.color.colorPrimary)

@@ -3,8 +3,15 @@ package com.luseen.verticalintrolibrary;
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.animation.ObjectAnimator;
+import android.app.Activity;
+import android.app.ActivityManager;
 import android.content.Context;
+import android.content.pm.PackageManager;
+import android.graphics.Bitmap;
+import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.Drawable;
 import android.os.Build;
+import android.support.v4.content.ContextCompat;
 import android.view.View;
 import android.widget.TextView;
 
@@ -94,5 +101,21 @@ class Utils {
                     }
                 })
                 .start();
+    }
+
+    static void setUpRecentAppStyle(Activity activity, int targetColor) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            try {
+                Drawable appIcon = activity.getPackageManager().getApplicationIcon(activity.getPackageName());
+                Bitmap bm = ((BitmapDrawable) appIcon).getBitmap();
+                int recentAppsStyleColor = ContextCompat.getColor(activity, targetColor);
+                ActivityManager.TaskDescription taskDescription =
+                        new ActivityManager.TaskDescription(
+                                activity.getString(R.string.app_name), bm, recentAppsStyleColor);
+                activity.setTaskDescription(taskDescription);
+            } catch (PackageManager.NameNotFoundException e) {
+                e.printStackTrace();
+            }
+        }
     }
 }

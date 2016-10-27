@@ -153,6 +153,8 @@ public abstract class VerticalIntro extends AppCompatActivity {
             super.onPageSelected(position);
             onFragmentChanged(position);
 
+            Utils.setUpRecentAppStyle(VerticalIntro.this,verticalIntroItemList.get(position).getBackgroundColor());
+
             boolean isLastPosition = position == verticalIntroItemList.size() - 1;
             if (isSkipEnabled) {
                 if (isLastPosition) {
@@ -223,7 +225,7 @@ public abstract class VerticalIntro extends AppCompatActivity {
     private void addListeners() {
         verticalViewPager.addOnPageChangeListener(pageChangeListener);
         bottomView.setOnClickListener(bottomButtonClickListener);
-        bottomView.setOnTouchListener(bottomButtonOnTouchListener);
+        //bottomView.setOnTouchListener(bottomButtonOnTouchListener);
     }
 
     private void setUpBottomView() {
@@ -289,6 +291,8 @@ public abstract class VerticalIntro extends AppCompatActivity {
 
         nextText = getString(R.string.next);
         doneText = getString(R.string.done);
+
+        Utils.setUpRecentAppStyle(this,verticalIntroItemList.get(0).getBackgroundColor());
 
         int lastFragmentColor = verticalIntroItemList.get(verticalIntroItemList.size() - 1).getBackgroundColor();
         verticalViewPager.setBackgroundColor(ContextCompat.getColor(this, lastFragmentColor));
