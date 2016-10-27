@@ -4,6 +4,7 @@ import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.animation.ObjectAnimator;
 import android.content.Context;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.os.Vibrator;
 import android.support.v4.content.ContextCompat;
@@ -26,18 +27,21 @@ public abstract class VerticalIntro extends AppCompatActivity {
     private static final double SCROLL_DURATION_FACTOR_ON_SKIP = 0.5f;
     private static final int FORWARD_SCROLL_ANIMATION_DURATION = 800;
     private static final int BACKWARD_SCROLL_ANIMATION_DURATION = 600;
-    private static final int DEFAULT_ANIMATION_DURATION = 500;
+    private static final int DEFAULT_ANIMATION_DURATION = 400;
     private static final int VIBRATE_INTENSITY = 20;
 
     private List<VerticalIntroItem> verticalIntroItemList = new ArrayList<>();
     private VerticalViewPager verticalViewPager;
     private RelativeLayout skipContainer;
     private RelativeLayout bottomView;
+    private Typeface customTypeFace;
+    private TextView skipTextView;
     private TextView nextTextView;
     private Vibrator vibrator;
     private Context context;
     private String nextText;
     private String doneText;
+    private String skipText;
     private boolean isChangedFromClick = false;
     private boolean isVibrateEnabled = true;
     private boolean isSkipEnabled = true;
@@ -75,27 +79,6 @@ public abstract class VerticalIntro extends AppCompatActivity {
         }
     }
 
-    private View.OnTouchListener bottomButtonOnTouchListener = new View.OnTouchListener() {
-        @Override
-        public boolean onTouch(View view, MotionEvent motionEvent) {
-            switch (motionEvent.getAction()) {
-                case MotionEvent.ACTION_DOWN: {
-                    startYPoint = motionEvent.getY();
-                    break;
-                }
-                case MotionEvent.ACTION_UP: {
-                    endYPoint = motionEvent.getY();
-
-                    if (startYPoint > endYPoint) {
-                        bottomView.performClick();
-                    }
-                    break;
-                }
-            }
-            return false;
-        }
-    };
-
     private View.OnClickListener bottomButtonClickListener = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
@@ -106,7 +89,6 @@ public abstract class VerticalIntro extends AppCompatActivity {
             boolean isLastPosition = currentViewPagerItemPosition == verticalIntroItemList.size() - 1;
             if (isLastPosition) {
                 onDonePressed();
-                //onFragmentChanged(currentViewPagerItemPosition);
             } else {
                 isChangedFromClick = true;
                 verticalViewPager.setScrollDurationFactor(SCROLL_DURATION_FACTOR_ON_SCROLL);
@@ -119,7 +101,7 @@ public abstract class VerticalIntro extends AppCompatActivity {
                         changeBottomViewBackgroundColor();
 
                         ObjectAnimator objectAnimator = ObjectAnimator.ofFloat(bottomView, View.TRANSLATION_Y, 0);
-                        objectAnimator.setDuration(BACKWARD_SCROLL_ANIMATION_DURATION);
+                        objectAnimator.setDuration(DEFAULT_ANIMATION_DURATION);
                         objectAnimator.addListener(new AnimatorListenerAdapter() {
                             @Override
                             public void onAnimationEnd(Animator animation) {
@@ -153,7 +135,7 @@ public abstract class VerticalIntro extends AppCompatActivity {
             super.onPageSelected(position);
             onFragmentChanged(position);
 
-            Utils.setUpRecentAppStyle(VerticalIntro.this,verticalIntroItemList.get(position).getBackgroundColor());
+            Utils.setUpRecentAppStyle(VerticalIntro.this, verticalIntroItemList.get(position).getBackgroundColor());
 
             boolean isLastPosition = position == verticalIntroItemList.size() - 1;
             if (isSkipEnabled) {
@@ -182,12 +164,16 @@ public abstract class VerticalIntro extends AppCompatActivity {
                                 duration = DEFAULT_ANIMATION_DURATION;
                             } else {
                                 duration = (long) (FORWARD_SCROLL_ANIMATION_DURATION / (scrollSpeed));
+                                if (duration > DEFAULT_ANIMATION_DURATION)
+                                    duration = DEFAULT_ANIMATION_DURATION;
                             }
                             Utils.makeTranslationYAnimation(bottomView, duration);
                         }
                     });
                 } else {
                     long duration = (long) (BACKWARD_SCROLL_ANIMATION_DURATION / (scrollSpeed));
+                    if (duration > DEFAULT_ANIMATION_DURATION)
+                        duration = DEFAULT_ANIMATION_DURATION;
                     Utils.makeTranslationYAnimation(bottomView, duration, new AnimatorListenerAdapter() {
                         @Override
                         public void onAnimationEnd(Animator animation) {
@@ -241,6 +227,11 @@ public abstract class VerticalIntro extends AppCompatActivity {
     }
 
     private void setUpViewPager() {
+        if (hasCustomFont()) {
+            for (VerticalIntroItem verticalIntroItem : verticalIntroItemList) {
+                verticalIntroItem.setCustomTypeFace(customTypeFace);
+            }
+        }
         VerticalIntroPagerAdapter pagerAdapter =
                 new VerticalIntroPagerAdapter(getSupportFragmentManager(), verticalIntroItemList);
         verticalViewPager.setAdapter(pagerAdapter);
@@ -285,14 +276,27 @@ public abstract class VerticalIntro extends AppCompatActivity {
         verticalViewPager = (VerticalViewPager) findViewById(R.id.vertical_view_pager);
         bottomView = (RelativeLayout) findViewById(R.id.bottom_view);
         skipContainer = (RelativeLayout) findViewById(R.id.skip_container);
+        skipTextView = (TextView) findViewById(R.id.skip);
         nextTextView = (TextView) findViewById(R.id.next);
         vibrator = (Vibrator) this.getSystemService(VIBRATOR_SERVICE);
         skipContainer.setOnClickListener(skipClickListener);
 
-        nextText = getString(R.string.next);
-        doneText = getString(R.string.done);
+        if (nextText == null)
+            nextText = getString(R.string.next);
+        if (doneText == null)
+            doneText = getString(R.string.done);
+        if (skipText == null)
+            skipText = getString(R.string.skip);
 
-        Utils.setUpRecentAppStyle(this,verticalIntroItemList.get(0).getBackgroundColor());
+        skipTextView.setText(skipText);
+        nextTextView.setText(nextText);
+
+        Utils.setUpRecentAppStyle(this, verticalIntroItemList.get(0).getBackgroundColor());
+
+        if (hasCustomFont()) {
+            nextTextView.setTypeface(customTypeFace);
+            skipTextView.setTypeface(customTypeFace);
+        }
 
         int lastFragmentColor = verticalIntroItemList.get(verticalIntroItemList.size() - 1).getBackgroundColor();
         verticalViewPager.setBackgroundColor(ContextCompat.getColor(this, lastFragmentColor));
@@ -302,6 +306,10 @@ public abstract class VerticalIntro extends AppCompatActivity {
 
     private boolean isGoingForward(int position) {
         return currentPosition < position;
+    }
+
+    private boolean hasCustomFont() {
+        return customTypeFace != null;
     }
 
     protected abstract void init();
@@ -324,5 +332,21 @@ public abstract class VerticalIntro extends AppCompatActivity {
 
     protected void setVibrateEnabled(boolean vibrateEnabled) {
         isVibrateEnabled = vibrateEnabled;
+    }
+
+    protected void setCustomTypeFace(Typeface customTypeFace) {
+        this.customTypeFace = customTypeFace;
+    }
+
+    public void setNextText(String nextText) {
+        this.nextText = nextText;
+    }
+
+    public void setDoneText(String doneText) {
+        this.doneText = doneText;
+    }
+
+    public void setSkipText(String skipText) {
+        this.skipText = skipText;
     }
 }

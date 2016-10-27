@@ -1,6 +1,7 @@
 package com.luseen.sample;
 
 
+import android.graphics.Typeface;
 import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
@@ -16,11 +17,10 @@ public class TestActivity extends VerticalIntro {
         addIntroItem(new VerticalIntroItem.Builder()
                 .backgroundColor(R.color.colorAccent)
                 .image(R.drawable.intro_second_vector)
-                .title("Lorem Ipsum")
-                .text("Lorem Ipsum is simply dummy text of the printing and typesetting industry."+
-                        "Lorem Ipsum is simply dummy text of the printing and typesetting industry."+
-                        "Lorem Ipsum is simply dummy text of the printing and typesetting industry."+
-                        "Lorem Ipsum is simply dummy text of the printing and typesetting industry."+
+                .title("Lorem Ipsum Lorem Ipsum")
+                .text("Lorem Ipsum is simply dummy text of the printing and typesetting industry." +
+                        "Lorem Ipsum is simply dummy text of the printing and typesetting industry." +
+                        "Lorem Ipsum is simply dummy text of the printing and typesetting industry." +
                         "Lorem Ipsum is simply dummy text of the printing and typesetting industry."
                 )
                 .build());
@@ -28,7 +28,7 @@ public class TestActivity extends VerticalIntro {
         addIntroItem(new VerticalIntroItem.Builder()
                 .backgroundColor(R.color.color2)
                 .image(R.drawable.four)
-                .title("Lorem Ipsum")
+                .title("Lorem Ipsum Lorem Ipsum ")
                 .text("Lorem Ipsum is simply dummy text of the printing and typesetting industry." +
                         "Lorem Ipsum is simply dummy text of the printing and typesetting industry.")
                 .build());
@@ -58,6 +58,11 @@ public class TestActivity extends VerticalIntro {
 
         setSkipEnabled(true);
         setVibrateEnabled(true);
+        setNextText("NNNNN");
+        setDoneText("DDDDD");
+        setSkipText("SSSSS");
+
+        setCustomTypeFace(Typeface.createFromAsset(getAssets(), "fonts/NotoSans-Regular.ttf"));
     }
 
     @Override

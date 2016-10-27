@@ -1,7 +1,8 @@
 <resources>
     <dimen name="intro_margin">40dp</dimen>
     <dimen name="intro_tittle_text_size">18sp</dimen>
-    <dimen name="intro_message_text_size">14sp</dimen>
+    <dimen name="intro_message_text_size">13sp</dimen>
     <dimen name="vertical_intro_image_margin">60dp</dimen>
+    <dimen name="landscape_vertical_intro_margin">50dp</dimen>
     <bool name="isTablet">false</bool>
 </resources>

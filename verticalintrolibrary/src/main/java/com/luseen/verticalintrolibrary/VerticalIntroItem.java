@@ -1,5 +1,6 @@
 package com.luseen.verticalintrolibrary;
 
+import android.graphics.Typeface;
 import android.os.Parcel;
 import android.os.Parcelable;
 
@@ -9,6 +10,7 @@ import android.os.Parcelable;
 
 public class VerticalIntroItem implements Parcelable {
 
+    private Typeface customTypeFace;
     private String title;
     private String text;
     private int image;
@@ -35,6 +37,14 @@ public class VerticalIntroItem implements Parcelable {
 
     public int getBackgroundColor() {
         return backgroundColor;
+    }
+
+    public void setCustomTypeFace(Typeface customTypeFace) {
+        this.customTypeFace = customTypeFace;
+    }
+
+    public Typeface getCustomTypeFace() {
+        return customTypeFace;
     }
 
     @Override

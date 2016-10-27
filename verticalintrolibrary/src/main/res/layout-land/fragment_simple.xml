@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/backgroundColor"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="horizontal"
+    android:weightSum="100">
+
+    <ImageView
+        android:id="@+id/image"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_gravity="center"
+        android:layout_marginBottom="@dimen/landscape_vertical_intro_margin"
+        android:layout_marginLeft="@dimen/landscape_vertical_intro_margin"
+        android:layout_marginRight="@dimen/landscape_vertical_intro_margin"
+        android:layout_marginTop="@dimen/landscape_vertical_intro_margin"
+        android:layout_weight="35"
+        android:adjustViewBounds="true"
+        app:srcCompat="@drawable/android"
+        tools:ignore="ContentDescription" />
+
+    <RelativeLayout
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_marginBottom="20dp"
+        android:layout_marginEnd="20dp"
+        android:layout_marginRight="20dp"
+        android:layout_marginTop="20dp"
+        android:layout_weight="65">
+
+        <TextView
+            android:id="@+id/text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:layout_marginTop="30dp"
+            android:maxLines="7"
+            android:textColor="@android:color/white"
+            android:textSize="@dimen/intro_message_text_size" />
+
+        <TextView
+            android:id="@+id/title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_above="@+id/text"
+            android:layout_marginEnd="45dp"
+            android:layout_marginRight="45dp"
+            android:maxLines="3"
+            android:textColor="@android:color/white"
+            android:textSize="@dimen/intro_tittle_text_size" />
+    </RelativeLayout>
+</LinearLayout>

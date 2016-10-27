@@ -36,6 +36,11 @@ public class VerticalIntroFragment extends Fragment {
             title.setText(verticalIntroItem.getTitle());
             image.setImageResource(verticalIntroItem.getImage());
             view.setBackgroundColor(ContextCompat.getColor(getActivity(), verticalIntroItem.getBackgroundColor()));
+
+            if (verticalIntroItem.getCustomTypeFace() != null) {
+                text.setTypeface(verticalIntroItem.getCustomTypeFace());
+                title.setTypeface(verticalIntroItem.getCustomTypeFace());
+            }
         } else {
             Log.e(VerticalIntro.TAG, "Something went wrong");
         }
