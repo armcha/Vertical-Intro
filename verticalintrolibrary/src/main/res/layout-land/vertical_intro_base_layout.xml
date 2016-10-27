@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/backgroundColor"
     android:layout_width="match_parent"
@@ -19,7 +18,6 @@
         android:layout_marginTop="@dimen/landscape_vertical_intro_margin"
         android:layout_weight="35"
         android:adjustViewBounds="true"
-        app:srcCompat="@drawable/android"
         tools:ignore="ContentDescription" />
 
     <RelativeLayout

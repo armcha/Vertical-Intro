@@ -21,8 +21,7 @@ public class TestActivity extends VerticalIntro {
                 .text("Lorem Ipsum is simply dummy text of the printing and typesetting industry." +
                         "Lorem Ipsum is simply dummy text of the printing and typesetting industry." +
                         "Lorem Ipsum is simply dummy text of the printing and typesetting industry." +
-                        "Lorem Ipsum is simply dummy text of the printing and typesetting industry."
-                )
+                        "Lorem Ipsum is simply dummy text of the printing and typesetting industry.")
                 .build());
 
         addIntroItem(new VerticalIntroItem.Builder()
@@ -32,13 +31,6 @@ public class TestActivity extends VerticalIntro {
                 .text("Lorem Ipsum is simply dummy text of the printing and typesetting industry." +
                         "Lorem Ipsum is simply dummy text of the printing and typesetting industry.")
                 .build());
-
-//        addIntroItem(new VerticalIntroItem.Builder()
-//                .backgroundColor(R.color.color3)
-//                .image(R.drawable.intro_third_vector)
-//                .title("Lorem Ipsum")
-//                .text("Lorem Ipsum is simply dummy text of the printing and typesetting industry.")
-//                .build());
 
         addIntroItem(new VerticalIntroItem.Builder()
                 .backgroundColor(R.color.colorPrimary)
@@ -58,10 +50,10 @@ public class TestActivity extends VerticalIntro {
 
         setSkipEnabled(true);
         setVibrateEnabled(true);
-        setNextText("NNNNN");
-        setDoneText("DDDDD");
-        setSkipText("SSSSS");
-
+        setNextText("OK");
+        setDoneText("FINISH HIM");
+        setSkipText("GO GO");
+        setVibrateIntensity(30);
         setCustomTypeFace(Typeface.createFromAsset(getAssets(), "fonts/NotoSans-Regular.ttf"));
     }
 
@@ -83,6 +75,5 @@ public class TestActivity extends VerticalIntro {
     @Override
     protected void onDonePressed() {
         Toast.makeText(this, "Done", Toast.LENGTH_SHORT).show();
-        Log.e("onDonePressed ", "onDonePressed");
     }
 }

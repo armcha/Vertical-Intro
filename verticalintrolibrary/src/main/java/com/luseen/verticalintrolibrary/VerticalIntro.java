@@ -28,7 +28,6 @@ public abstract class VerticalIntro extends AppCompatActivity {
     private static final int FORWARD_SCROLL_ANIMATION_DURATION = 800;
     private static final int BACKWARD_SCROLL_ANIMATION_DURATION = 600;
     private static final int DEFAULT_ANIMATION_DURATION = 400;
-    private static final int VIBRATE_INTENSITY = 20;
 
     private List<VerticalIntroItem> verticalIntroItemList = new ArrayList<>();
     private VerticalViewPager verticalViewPager;
@@ -45,7 +44,7 @@ public abstract class VerticalIntro extends AppCompatActivity {
     private boolean isChangedFromClick = false;
     private boolean isVibrateEnabled = true;
     private boolean isSkipEnabled = true;
-    private float startYPoint, endYPoint;
+    private int vibrateIntensity = 20;
     private int currentPosition;
     private double scrollSpeed;
 
@@ -83,7 +82,7 @@ public abstract class VerticalIntro extends AppCompatActivity {
         @Override
         public void onClick(View v) {
             if (isVibrateEnabled) {
-                vibrator.vibrate(VIBRATE_INTENSITY);
+                vibrator.vibrate(vibrateIntensity);
             }
             int currentViewPagerItemPosition = verticalViewPager.getCurrentItem();
             boolean isLastPosition = currentViewPagerItemPosition == verticalIntroItemList.size() - 1;
@@ -120,7 +119,7 @@ public abstract class VerticalIntro extends AppCompatActivity {
         @Override
         public void onClick(View view) {
             if (isVibrateEnabled) {
-                vibrator.vibrate(VIBRATE_INTENSITY);
+                vibrator.vibrate(vibrateIntensity);
             }
             int lastItem = verticalIntroItemList.size();
             verticalViewPager.setScrollDurationFactor(SCROLL_DURATION_FACTOR_ON_SKIP);
@@ -211,7 +210,6 @@ public abstract class VerticalIntro extends AppCompatActivity {
     private void addListeners() {
         verticalViewPager.addOnPageChangeListener(pageChangeListener);
         bottomView.setOnClickListener(bottomButtonClickListener);
-        //bottomView.setOnTouchListener(bottomButtonOnTouchListener);
     }
 
     private void setUpBottomView() {
@@ -348,5 +346,10 @@ public abstract class VerticalIntro extends AppCompatActivity {
 
     public void setSkipText(String skipText) {
         this.skipText = skipText;
+    }
+
+    //default is 20
+    public void setVibrateIntensity(int vibrateIntensity) {
+        this.vibrateIntensity = vibrateIntensity;
     }
 }
