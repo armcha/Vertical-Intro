@@ -179,7 +179,6 @@ public abstract class VerticalIntro extends AppCompatActivity {
                     if (isInLandscapeMode() && duration < 500) {
                         duration = LANDSCAPE_MODE_DEFAULT_ANIMATION_DURATION;
                     }
-                    Log.e("onPageSelected ", "" + duration);
                     Utils.makeTranslationYAnimation(bottomView, duration, new AnimatorListenerAdapter() {
                         @Override
                         public void onAnimationEnd(Animator animation) {

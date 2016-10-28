@@ -1,4 +1,5 @@
 apply plugin: 'com.android.library'
+apply plugin: 'com.novoda.bintray-release'
 
 android {
     compileSdkVersion 25
@@ -22,4 +23,13 @@ android {
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
     compile 'com.android.support:appcompat-v7:25.0.0'
+}
+
+publish {
+    groupId = 'com.github.armcha'
+    artifactId = 'Vertical Intro'
+    publishVersion = '0.3.3'
+    desc = 'Material design vertical intro'
+    licences = ['MIT']
+    website = 'https://github.com/armcha/Vertical-Intro'
 }
