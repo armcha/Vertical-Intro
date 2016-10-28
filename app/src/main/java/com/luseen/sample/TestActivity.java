@@ -1,6 +1,7 @@
 package com.luseen.sample;
 
 
+import android.content.res.Configuration;
 import android.graphics.Typeface;
 import android.util.Log;
 import android.view.View;
@@ -19,7 +20,6 @@ public class TestActivity extends VerticalIntro {
                 .image(R.drawable.intro_second_vector)
                 .title("Lorem Ipsum Lorem Ipsum")
                 .text("Lorem Ipsum is simply dummy text of the printing and typesetting industry." +
-                        "Lorem Ipsum is simply dummy text of the printing and typesetting industry." +
                         "Lorem Ipsum is simply dummy text of the printing and typesetting industry." +
                         "Lorem Ipsum is simply dummy text of the printing and typesetting industry.")
                 .build());
@@ -75,5 +75,10 @@ public class TestActivity extends VerticalIntro {
     @Override
     protected void onDonePressed() {
         Toast.makeText(this, "Done", Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void onConfigurationChanged(Configuration newConfig) {
+        super.onConfigurationChanged(newConfig);
     }
 }

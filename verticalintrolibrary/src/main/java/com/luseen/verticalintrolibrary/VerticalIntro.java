@@ -4,6 +4,7 @@ import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.animation.ObjectAnimator;
 import android.content.Context;
+import android.content.res.Configuration;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.os.Vibrator;
@@ -28,6 +29,7 @@ public abstract class VerticalIntro extends AppCompatActivity {
     private static final int FORWARD_SCROLL_ANIMATION_DURATION = 800;
     private static final int BACKWARD_SCROLL_ANIMATION_DURATION = 600;
     private static final int DEFAULT_ANIMATION_DURATION = 400;
+    private static final int LANDSCAPE_MODE_DEFAULT_ANIMATION_DURATION = 50;
 
     private List<VerticalIntroItem> verticalIntroItemList = new ArrayList<>();
     private VerticalViewPager verticalViewPager;
@@ -173,6 +175,11 @@ public abstract class VerticalIntro extends AppCompatActivity {
                     long duration = (long) (BACKWARD_SCROLL_ANIMATION_DURATION / (scrollSpeed));
                     if (duration > DEFAULT_ANIMATION_DURATION)
                         duration = DEFAULT_ANIMATION_DURATION;
+
+                    if (isInLandscapeMode() && duration < 500) {
+                        duration = LANDSCAPE_MODE_DEFAULT_ANIMATION_DURATION;
+                    }
+                    Log.e("onPageSelected ", "" + duration);
                     Utils.makeTranslationYAnimation(bottomView, duration, new AnimatorListenerAdapter() {
                         @Override
                         public void onAnimationEnd(Animator animation) {
@@ -184,13 +191,17 @@ public abstract class VerticalIntro extends AppCompatActivity {
                         }
                     });
                 }
-
             } else {
                 isChangedFromClick = false;
             }
             currentPosition = position;
         }
     };
+
+    public boolean isInLandscapeMode() {
+        int value = getResources().getConfiguration().orientation;
+        return value == Configuration.ORIENTATION_LANDSCAPE;
+    }
 
     private void changeBottomViewBackgroundColor() {
         final int currentBackgroundColor;

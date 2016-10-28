@@ -10,6 +10,7 @@
         android:theme="@style/AppTheme">
         <activity
             android:name=".TestActivity"
+            android:screenOrientation="landscape"
             android:theme="@style/VerticalIntroStyle">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
