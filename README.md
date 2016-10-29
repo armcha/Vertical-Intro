@@ -9,7 +9,7 @@ The current minSDK version is API level 14 Android 4.0 (ICE CREAM SANDWICH).
 ![](screens/screen2.png) ![](screens/screen3.png)
 
 ## Download sample [apk][0]
-[0]: https://github.com/armcha/AutoLinkTextView/raw/master/screens/verticalIntro.apk
+[0]: https://github.com/armcha/Vertical-Intro/raw/master/screens/verticalIntro.apk
 
 #YouTube demo
 
