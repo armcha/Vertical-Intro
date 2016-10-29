@@ -1,11 +1,10 @@
 package com.luseen.sample;
 
 
-import android.content.res.Configuration;
 import android.graphics.Typeface;
+import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
-import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import com.luseen.verticalintrolibrary.VerticalIntro;
@@ -51,16 +50,16 @@ public class TestActivity extends VerticalIntro {
 
         setSkipEnabled(true);
         setVibrateEnabled(true);
-        setNextText("OK");
-        setDoneText("FINISH HIM");
-        setSkipText("GO GO");
-        setVibrateIntensity(30);
+//        setNextText("OK");
+//        setDoneText("FINISH HIM");
+//        setSkipText("GO GO");
+        setVibrateIntensity(20);
         setCustomTypeFace(Typeface.createFromAsset(getAssets(), "fonts/NotoSans-Regular.ttf"));
     }
 
     @Override
     protected Integer setLastItemBottomViewColor() {
-        return R.color.colorAccent;
+        return R.color.color2;
     }
 
     @Override
@@ -76,10 +75,5 @@ public class TestActivity extends VerticalIntro {
     @Override
     protected void onDonePressed() {
         Toast.makeText(this, "Done", Toast.LENGTH_SHORT).show();
-    }
-
-    @Override
-    public void onConfigurationChanged(Configuration newConfig) {
-        super.onConfigurationChanged(newConfig);
     }
 }
