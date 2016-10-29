@@ -47,7 +47,7 @@ Add items in init
 
 ```java
 addIntroItem(new VerticalIntroItem.Builder()
-                .backgroundColor(R.color.your_color)
+                .backgroundColor(R.color.my_color)
                 .image(R.drawable.my_drawable)
                 .title("Lorem Ipsum Lorem Ipsum")
                 .text("Lorem Ipsum is simply dummy text of the printing and typesetting industry." +
@@ -60,7 +60,7 @@ Return color for last item bottom view background color
 ```java
  @Override
     protected Integer setLastItemBottomViewColor() {
-        return R.color.color2;
+        return R.color.my_second_color;
     }
 ```
 
