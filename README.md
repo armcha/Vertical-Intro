@@ -1,6 +1,6 @@
 # Vertical-Intro
 
-Vertical intro allows you to integrate vertical intro to your app
+Vertical intro allows you to integrate material vertical intro to your app
 
 ![](screens/gif1.gif)
 
