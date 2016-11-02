@@ -278,12 +278,14 @@ public abstract class VerticalIntro extends AppCompatActivity {
             throw new NullPointerException(TAG + " You need at least one item");
         }
 
+        skipContainer = (RelativeLayout) findViewById(R.id.skip_container);
+        
         if (verticalIntroItemList.size() == 1) {
             skipContainer.setVisibility(View.GONE);
         }
+        
         verticalViewPager = (VerticalViewPager) findViewById(R.id.vertical_view_pager);
         bottomView = (RelativeLayout) findViewById(R.id.bottom_view);
-        skipContainer = (RelativeLayout) findViewById(R.id.skip_container);
         skipTextView = (TextView) findViewById(R.id.skip);
         nextTextView = (TextView) findViewById(R.id.next);
         vibrator = (Vibrator) this.getSystemService(VIBRATOR_SERVICE);
