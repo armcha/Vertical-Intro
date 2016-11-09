@@ -19,7 +19,7 @@ The current minSDK version is API level 14 Android 4.0 (ICE CREAM SANDWICH).
 -----------------------
 Gradle:
 ```groovy
-compile 'com.github.armcha:Vertical-Intro:1.0.0'
+compile 'com.github.armcha:Vertical-Intro:1.0.1'
 ```
 
 # Setup and usage

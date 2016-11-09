@@ -31,7 +31,7 @@ dependencies {
 publish {
     groupId = 'com.github.armcha'
     artifactId = 'Vertical-Intro'
-    publishVersion = '1.0.0'
+    publishVersion = '1.0.1'
     desc = 'Material design vertical intro'
     licences = ['MIT']
     website = 'https://github.com/armcha/Vertical-Intro'
