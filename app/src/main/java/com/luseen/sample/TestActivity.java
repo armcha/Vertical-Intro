@@ -16,36 +16,70 @@ public class TestActivity extends VerticalIntro {
     protected void init() {
 
         addIntroItem(new VerticalIntroItem.Builder()
-                .backgroundColor(R.color.colorAccent)
-                .image(R.drawable.intro_second_vector)
+                .backgroundColor(R.color.white)
+                .image(R.drawable.first)
                 .title("Lorem Ipsum Lorem Ipsum")
                 .text("Lorem Ipsum is simply dummy text of the printing and typesetting industry." +
                         "Lorem Ipsum is simply dummy text of the printing and typesetting industry." +
                         "Lorem Ipsum is simply dummy text of the printing and typesetting industry.")
+                .setTextColor("#0f9595")
+                .setTitleColor("#0f9595")
+                .setTextSize(14)
+                .setTitleSize(17)
+                .setNextTextColor("#0f9595")
                 .build());
 
         addIntroItem(new VerticalIntroItem.Builder()
-                .backgroundColor(R.color.color2)
-                .image(R.drawable.four)
+                .backgroundColor(R.color.white)
+                .image(R.drawable.second)
                 .title("Lorem Ipsum Lorem Ipsum ")
                 .text("Lorem Ipsum is simply dummy text of the printing and typesetting industry." +
                         "Lorem Ipsum is simply dummy text of the printing and typesetting industry.")
+                .setTextColor("#0f9595")
+                .setTitleColor("#0f9595")
+                .setTextSize(14)
+                .setTitleSize(17)
+                .setNextTextColor("#0f9595")
                 .build());
 
         addIntroItem(new VerticalIntroItem.Builder()
-                .backgroundColor(R.color.colorPrimary)
-                .image(R.drawable.android)
+                .backgroundColor(R.color.white)
+                .image(R.drawable.third)
                 .title("Lorem Ipsum")
                 .text("Lorem Ipsum is simply dummy text of the printing and typesetting industry.")
+                .setTextColor("#0f9595")
+                .setTitleColor("#0f9595")
+                .setTextSize(14)
+                .setTitleSize(17)
+                .setNextTextColor("#0f9595")
                 .build());
 
         addIntroItem(new VerticalIntroItem.Builder()
-                .backgroundColor(R.color.color3)
-                .image(R.drawable.new_intro)
+                .backgroundColor(R.color.white)
+                .image(R.drawable.fourth)
                 .title("Lorem Ipsum")
                 .text("Lorem Ipsum is simply dummy text of the printing and typesetting industry." +
                         "Lorem Ipsum is simply dummy text of the printing and typesetting industry." +
                         "Lorem Ipsum is simply dummy text of the printing and typesetting industry.")
+                .setTextColor("#0f9595")
+                .setTitleColor("#0f9595")
+                .setTextSize(14)
+                .setTitleSize(17)
+                .setNextTextColor("#0f9595")
+                .build());
+
+        addIntroItem(new VerticalIntroItem.Builder()
+                .backgroundColor(R.color.white)
+                .image(R.drawable.fifth)
+                .title("Lorem Ipsum")
+                .text("Lorem Ipsum is simply dummy text of the printing and typesetting industry." +
+                        "Lorem Ipsum is simply dummy text of the printing and typesetting industry." +
+                        "Lorem Ipsum is simply dummy text of the printing and typesetting industry.")
+                .setTextColor("#0f9595")
+                .setTitleColor("#0f9595")
+                .setTextSize(14)
+                .setTitleSize(17)
+                .setNextTextColor("#0f9595")
                 .build());
 
         setSkipEnabled(true);

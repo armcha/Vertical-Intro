@@ -1,5 +1,6 @@
 package com.luseen.verticalintrolibrary;
 
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
@@ -32,8 +33,15 @@ public class VerticalIntroFragment extends Fragment {
             TextView text = (TextView) view.findViewById(R.id.text);
             TextView title = (TextView) view.findViewById(R.id.title);
             ImageView image = (ImageView) view.findViewById(R.id.image);
+
             text.setText(verticalIntroItem.getText());
             title.setText(verticalIntroItem.getTitle());
+
+            text.setTextColor(Color.parseColor(verticalIntroItem.getTextColor()));
+            text.setTextSize(verticalIntroItem.getTextSize());
+            title.setTextColor(Color.parseColor(verticalIntroItem.getTitleColor()));
+            title.setTextSize(verticalIntroItem.getTitleSize());
+
             image.setImageResource(verticalIntroItem.getImage());
             view.setBackgroundColor(ContextCompat.getColor(getActivity(), verticalIntroItem.getBackgroundColor()));
 

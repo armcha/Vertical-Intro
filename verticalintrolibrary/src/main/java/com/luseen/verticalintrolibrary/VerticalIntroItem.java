@@ -15,12 +15,62 @@ public class VerticalIntroItem implements Parcelable {
     private String text;
     private int image;
     private int backgroundColor;
+    private String textColor;
+    private String titleColor;
+    private float textSize;
+    private float titleSize;
+    private String nextTextColor;
+
+    public String getNextTextColor() {
+        return nextTextColor;
+    }
+
+    public void setNextTextColor(String nextTextColor) {
+        this.nextTextColor = nextTextColor;
+    }
+
+    public String getTextColor() {
+        return textColor;
+    }
+
+    public void setTextColor(String textColor) {
+        this.textColor = textColor;
+    }
+
+    public String getTitleColor() {
+        return titleColor;
+    }
+
+    public void setTitleColor(String titleColor) {
+        this.titleColor = titleColor;
+    }
+
+    public float getTextSize() {
+        return textSize;
+    }
+
+    public void setTextSize(float textSize) {
+        this.textSize = textSize;
+    }
+
+    public float getTitleSize() {
+        return titleSize;
+    }
+
+    public void setTitleSize(float titleSize) {
+        this.titleSize = titleSize;
+    }
 
     private VerticalIntroItem(Builder builder) {
         this.title = builder.title;
         this.text = builder.text;
         this.image = builder.image;
         this.backgroundColor = builder.backgroundColor;
+        this.textSize=builder.textSize;
+        this.textColor=builder.textColor;
+        this.titleSize=builder.titleSize;
+        this.titleColor=builder.titleColor;
+        this.nextTextColor=builder.nextTextColor;
     }
 
     public String getTitle() {
@@ -84,6 +134,44 @@ public class VerticalIntroItem implements Parcelable {
         private String text;
         private int image;
         private int backgroundColor;
+        private String textColor;
+        private String titleColor;
+        private float textSize;
+        private float titleSize;
+        private String nextTextColor;
+
+        public Builder setNextTextColor(String nextTextColor) {
+            this.nextTextColor = nextTextColor;
+            return this;
+        }
+
+
+
+
+        public Builder setTextColor(String textColor) {
+            this.textColor = textColor;
+            return this;
+        }
+
+
+        public Builder setTitleColor(String titleColor) {
+            this.titleColor = titleColor;
+            return this;
+        }
+
+
+        public Builder setTextSize(float textSize) {
+            this.textSize = textSize;
+            return this;
+        }
+
+
+        public Builder setTitleSize(float titleSize) {
+            this.titleSize = titleSize;
+            return this;
+        }
+
+
 
         public Builder() {
         }

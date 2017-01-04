@@ -5,5 +5,6 @@
     <dimen name="intro_top_margin">50dp</dimen>
     <dimen name="vertical_intro_image_margin">200dp</dimen>
     <dimen name="landscape_vertical_intro_margin">100dp</dimen>
+    <dimen name="landscape_vertical_intro_margin_left">60dp</dimen>
     <bool name="isTablet">true</bool>
 </resources>
