@@ -80,6 +80,5 @@ public class TestActivity extends VerticalIntro {
     @Override
     protected void onDonePressed() {
         Toast.makeText(this, "Done", Toast.LENGTH_SHORT).show();
-        Toast.makeText(this, "sdgsdg", Toast.LENGTH_SHORT).show();
     }
 }

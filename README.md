@@ -25,7 +25,7 @@ compile 'com.github.armcha:Vertical-Intro:2.0.0'
 # Setup and usage
 -----------------------
 ## Step 1:
-Your Activity must extend VerticalIntro and implement methods
+Your activity must extends from VerticalIntro activity
 
 ```java 
 public class TestActivity extends VerticalIntro
