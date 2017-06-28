@@ -34,7 +34,6 @@
             android:layout_gravity="start"
             android:layout_marginLeft="@dimen/landscape_vertical_intro_margin_left"
             android:layout_marginStart="@dimen/landscape_vertical_intro_margin_left"
-            android:textColor="@android:color/white"
             android:textSize="@dimen/intro_tittle_text_size" />
 
         <TextView
@@ -45,7 +44,6 @@
             android:layout_marginLeft="@dimen/landscape_vertical_intro_margin_left"
             android:layout_marginRight="@dimen/landscape_vertical_intro_margin_left"
             android:layout_marginTop="30dp"
-            android:textColor="@android:color/white"
             android:textSize="@dimen/intro_message_text_size" />
     </LinearLayout>
 </LinearLayout>

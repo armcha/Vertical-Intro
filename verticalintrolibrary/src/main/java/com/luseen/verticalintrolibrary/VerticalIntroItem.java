@@ -13,35 +13,59 @@ public class VerticalIntroItem implements Parcelable {
     private Typeface customTypeFace;
     private String title;
     private String text;
-    private int image;
     private int backgroundColor;
-    private String textColor;
-    private String titleColor;
+    private int nextTextColor;
+    private int titleColor;
+    private int textColor;
+    private int image;
     private float textSize;
     private float titleSize;
-    private String nextTextColor;
 
-    public String getNextTextColor() {
+    protected VerticalIntroItem(Parcel in) {
+        title = in.readString();
+        text = in.readString();
+        image = in.readInt();
+        backgroundColor = in.readInt();
+        textColor = in.readInt();
+        titleColor = in.readInt();
+        textSize = in.readFloat();
+        titleSize = in.readFloat();
+        nextTextColor = in.readInt();
+    }
+
+    public static final Creator<VerticalIntroItem> CREATOR = new Creator<VerticalIntroItem>() {
+        @Override
+        public VerticalIntroItem createFromParcel(Parcel in) {
+            return new VerticalIntroItem(in);
+        }
+
+        @Override
+        public VerticalIntroItem[] newArray(int size) {
+            return new VerticalIntroItem[size];
+        }
+    };
+
+    public int getNextTextColor() {
         return nextTextColor;
     }
 
-    public void setNextTextColor(String nextTextColor) {
+    public void setNextTextColor(int nextTextColor) {
         this.nextTextColor = nextTextColor;
     }
 
-    public String getTextColor() {
+    public int getTextColor() {
         return textColor;
     }
 
-    public void setTextColor(String textColor) {
+    public void setTextColor(int textColor) {
         this.textColor = textColor;
     }
 
-    public String getTitleColor() {
+    public int getTitleColor() {
         return titleColor;
     }
 
-    public void setTitleColor(String titleColor) {
+    public void setTitleColor(int titleColor) {
         this.titleColor = titleColor;
     }
 
@@ -66,11 +90,11 @@ public class VerticalIntroItem implements Parcelable {
         this.text = builder.text;
         this.image = builder.image;
         this.backgroundColor = builder.backgroundColor;
-        this.textSize=builder.textSize;
-        this.textColor=builder.textColor;
-        this.titleSize=builder.titleSize;
-        this.titleColor=builder.titleColor;
-        this.nextTextColor=builder.nextTextColor;
+        this.textSize = builder.textSize;
+        this.textColor = builder.textColor;
+        this.titleSize = builder.titleSize;
+        this.titleColor = builder.titleColor;
+        this.nextTextColor = builder.nextTextColor;
     }
 
     public String getTitle() {
@@ -108,70 +132,49 @@ public class VerticalIntroItem implements Parcelable {
         dest.writeString(text);
         dest.writeInt(image);
         dest.writeInt(backgroundColor);
+        dest.writeInt(textColor);
+        dest.writeInt(titleColor);
+        dest.writeFloat(textSize);
+        dest.writeFloat(titleSize);
+        dest.writeInt(nextTextColor);
     }
-
-    private VerticalIntroItem(Parcel in) {
-        title = in.readString();
-        text = in.readString();
-        image = in.readInt();
-        backgroundColor = in.readInt();
-    }
-
-    public static final Creator<VerticalIntroItem> CREATOR = new Creator<VerticalIntroItem>() {
-        @Override
-        public VerticalIntroItem createFromParcel(Parcel in) {
-            return new VerticalIntroItem(in);
-        }
-
-        @Override
-        public VerticalIntroItem[] newArray(int size) {
-            return new VerticalIntroItem[size];
-        }
-    };
 
     public static class Builder {
+
         private String title;
         private String text;
-        private int image;
+        private int nextTextColor = R.color.white;
+        private int titleColor = R.color.white;
+        private int textColor = R.color.white;
         private int backgroundColor;
-        private String textColor;
-        private String titleColor;
-        private float textSize;
+        private int image;
         private float titleSize;
-        private String nextTextColor;
+        private float textSize;
 
-        public Builder setNextTextColor(String nextTextColor) {
+        public Builder nextTextColor(int nextTextColor) {
             this.nextTextColor = nextTextColor;
             return this;
         }
 
-
-
-
-        public Builder setTextColor(String textColor) {
+        public Builder textColor(int textColor) {
             this.textColor = textColor;
             return this;
         }
 
-
-        public Builder setTitleColor(String titleColor) {
+        public Builder titleColor(int titleColor) {
             this.titleColor = titleColor;
             return this;
         }
 
-
-        public Builder setTextSize(float textSize) {
+        public Builder textSize(float textSize) {
             this.textSize = textSize;
             return this;
         }
 
-
-        public Builder setTitleSize(float titleSize) {
+        public Builder titleSize(float titleSize) {
             this.titleSize = titleSize;
             return this;
         }
-
-
 
         public Builder() {
         }

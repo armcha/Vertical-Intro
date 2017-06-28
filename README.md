@@ -19,7 +19,7 @@ The current minSDK version is API level 14 Android 4.0 (ICE CREAM SANDWICH).
 -----------------------
 Gradle:
 ```groovy
-compile 'com.github.armcha:Vertical-Intro:1.0.1'
+compile 'com.github.armcha:Vertical-Intro:2.0.0'
 ```
 
 # Setup and usage
@@ -53,6 +53,11 @@ addIntroItem(new VerticalIntroItem.Builder()
                 .text("Lorem Ipsum is simply dummy text of the printing and typesetting industry." +
                         "Lorem Ipsum is simply dummy text of the printing and typesetting industry." +
                         "Lorem Ipsum is simply dummy text of the printing and typesetting industry.")
+                .textColor(R.color.your_color)
+                .titleColor(R.color.your_color)
+                .textSize(14) // in SP
+                .titleSize(17) // in SP
+                .nextTextColor(R.color.color1)
                 .build());
 ```
 
@@ -95,6 +100,38 @@ setCustomTypeFace(Typeface.createFromAsset(getAssets(), "fonts/NotoSans-Regular.
 ```
 #![](screens/screen1.png)
 
+----------------------------------
+
+Set text color
+```java
+.textColor(R.color.your_color)
+```
+----------------------------------
+
+Set title color
+```java
+.titleColor(R.color.your_color)
+```
+----------------------------------
+
+Set text size in SP
+```java
+.textSize(14)
+```
+----------------------------------
+
+Set title size in SP
+```java
+.titleSize(17)
+```
+----------------------------------
+
+Set skip button text color
+```java
+setSkipColor(R.color.your_color);
+```
+----------------------------------
+
 
 ## Contact 
 
@@ -103,15 +140,15 @@ Please fell free to contact me if there is any problem when using the library.
 
 - **Email**: armcha01@gmail.com
 - **Facebook**: https://web.facebook.com/chatikyana
-- **Google +**: https://plus.google.com/112011638040018774140
-- **Website**: http://luseen.com/
+- **Google +**: https://plus.google.com/+ArmanChatikyan
+- **Website**: https://armcha.github.io
 
 License
 --------
 
 
       Vertical Intro library for Android
-      Copyright (c) 2016 Arman Chatikyan (https://github.com/armcha/Vertical-Intro).
+      Copyright (c) 2017 Arman Chatikyan (https://github.com/armcha/Vertical-Intro).
       
       Licensed under the Apache License, Version 2.0 (the "License");
       you may not use this file except in compliance with the License.

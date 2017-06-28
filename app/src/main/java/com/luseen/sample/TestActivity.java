@@ -16,74 +16,45 @@ public class TestActivity extends VerticalIntro {
     protected void init() {
 
         addIntroItem(new VerticalIntroItem.Builder()
-                .backgroundColor(R.color.white)
-                .image(R.drawable.first)
+                .backgroundColor(R.color.colorAccent)
+                .image(R.drawable.intro_second_vector)
                 .title("Lorem Ipsum Lorem Ipsum")
                 .text("Lorem Ipsum is simply dummy text of the printing and typesetting industry." +
                         "Lorem Ipsum is simply dummy text of the printing and typesetting industry." +
                         "Lorem Ipsum is simply dummy text of the printing and typesetting industry.")
-                .setTextColor("#0f9595")
-                .setTitleColor("#0f9595")
-                .setTextSize(14)
-                .setTitleSize(17)
-                .setNextTextColor("#0f9595")
+                .textSize(14)
+                .titleSize(17)
                 .build());
 
         addIntroItem(new VerticalIntroItem.Builder()
-                .backgroundColor(R.color.white)
-                .image(R.drawable.second)
+                .backgroundColor(R.color.color2)
+                .image(R.drawable.four)
                 .title("Lorem Ipsum Lorem Ipsum ")
                 .text("Lorem Ipsum is simply dummy text of the printing and typesetting industry." +
                         "Lorem Ipsum is simply dummy text of the printing and typesetting industry.")
-                .setTextColor("#0f9595")
-                .setTitleColor("#0f9595")
-                .setTextSize(14)
-                .setTitleSize(17)
-                .setNextTextColor("#0f9595")
                 .build());
 
         addIntroItem(new VerticalIntroItem.Builder()
-                .backgroundColor(R.color.white)
-                .image(R.drawable.third)
+                .backgroundColor(R.color.colorPrimary)
+                .image(R.drawable.android)
                 .title("Lorem Ipsum")
                 .text("Lorem Ipsum is simply dummy text of the printing and typesetting industry.")
-                .setTextColor("#0f9595")
-                .setTitleColor("#0f9595")
-                .setTextSize(14)
-                .setTitleSize(17)
-                .setNextTextColor("#0f9595")
+                .textColor(R.color.black)
+                .titleColor(R.color.black)
                 .build());
 
         addIntroItem(new VerticalIntroItem.Builder()
-                .backgroundColor(R.color.white)
-                .image(R.drawable.fourth)
+                .backgroundColor(R.color.color3)
+                .image(R.drawable.new_intro)
                 .title("Lorem Ipsum")
                 .text("Lorem Ipsum is simply dummy text of the printing and typesetting industry." +
                         "Lorem Ipsum is simply dummy text of the printing and typesetting industry." +
                         "Lorem Ipsum is simply dummy text of the printing and typesetting industry.")
-                .setTextColor("#0f9595")
-                .setTitleColor("#0f9595")
-                .setTextSize(14)
-                .setTitleSize(17)
-                .setNextTextColor("#0f9595")
-                .build());
-
-        addIntroItem(new VerticalIntroItem.Builder()
-                .backgroundColor(R.color.white)
-                .image(R.drawable.fifth)
-                .title("Lorem Ipsum")
-                .text("Lorem Ipsum is simply dummy text of the printing and typesetting industry." +
-                        "Lorem Ipsum is simply dummy text of the printing and typesetting industry." +
-                        "Lorem Ipsum is simply dummy text of the printing and typesetting industry.")
-                .setTextColor("#0f9595")
-                .setTitleColor("#0f9595")
-                .setTextSize(14)
-                .setTitleSize(17)
-                .setNextTextColor("#0f9595")
                 .build());
 
         setSkipEnabled(true);
         setVibrateEnabled(true);
+        setSkipColor(R.color.black);
 //        setNextText("OK");
 //        setDoneText("FINISH HIM");
 //        setSkipText("GO GO");
@@ -109,5 +80,6 @@ public class TestActivity extends VerticalIntro {
     @Override
     protected void onDonePressed() {
         Toast.makeText(this, "Done", Toast.LENGTH_SHORT).show();
+        Toast.makeText(this, "sdgsdg", Toast.LENGTH_SHORT).show();
     }
 }

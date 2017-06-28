@@ -3,8 +3,11 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/Vertical-Intro.iml" filepath="$PROJECT_DIR$/Vertical-Intro.iml" />
+      <module fileurl="file://C:\Users\Chati\AndroidStudioProjects\Vertical-Intro\Vertical-Intro.iml" filepath="C:\Users\Chati\AndroidStudioProjects\Vertical-Intro\Vertical-Intro.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
+      <module fileurl="file://C:\Users\Chati\AndroidStudioProjects\Vertical-Intro\app\app.iml" filepath="C:\Users\Chati\AndroidStudioProjects\Vertical-Intro\app\app.iml" />
       <module fileurl="file://$PROJECT_DIR$/verticalintrolibrary/verticalintrolibrary.iml" filepath="$PROJECT_DIR$/verticalintrolibrary/verticalintrolibrary.iml" />
+      <module fileurl="file://C:\Users\Chati\AndroidStudioProjects\Vertical-Intro\verticalintrolibrary\verticalintrolibrary.iml" filepath="C:\Users\Chati\AndroidStudioProjects\Vertical-Intro\verticalintrolibrary\verticalintrolibrary.iml" />
     </modules>
   </component>
 </project>

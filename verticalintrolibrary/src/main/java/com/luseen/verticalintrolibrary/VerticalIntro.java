@@ -3,9 +3,9 @@ package com.luseen.verticalintrolibrary;
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.animation.ObjectAnimator;
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.res.Configuration;
-import android.graphics.Color;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.os.Vibrator;
@@ -24,13 +24,14 @@ import java.util.List;
 public abstract class VerticalIntro extends AppCompatActivity {
 
     static final String TAG = "VerticalIntro";
-    private static final double SCROLL_DURATION_FACTOR_ON_SCROLL = 4;
+
+    private static final int LANDSCAPE_MODE_DEFAULT_ANIMATION_DURATION = 50;
+    private static final int BACKWARD_SCROLL_ANIMATION_DURATION = 600;
+    private static final int FORWARD_SCROLL_ANIMATION_DURATION = 800;
+    private static final int DEFAULT_ANIMATION_DURATION = 400;
     private static final double SCROLL_DURATION_FACTOR_ON_CLICK = 1.5;
     private static final double SCROLL_DURATION_FACTOR_ON_SKIP = 0.5f;
-    private static final int FORWARD_SCROLL_ANIMATION_DURATION = 800;
-    private static final int BACKWARD_SCROLL_ANIMATION_DURATION = 600;
-    private static final int DEFAULT_ANIMATION_DURATION = 400;
-    private static final int LANDSCAPE_MODE_DEFAULT_ANIMATION_DURATION = 50;
+    private static final double SCROLL_DURATION_FACTOR_ON_SCROLL = 4;
 
     private List<VerticalIntroItem> verticalIntroItemList = new ArrayList<>();
     private VerticalViewPager verticalViewPager;
@@ -44,13 +45,14 @@ public abstract class VerticalIntro extends AppCompatActivity {
     private String nextText;
     private String doneText;
     private String skipText;
+
     private boolean isChangedFromClick = false;
     private boolean isVibrateEnabled = true;
     private boolean isSkipEnabled = true;
     private int vibrateIntensity = 20;
     private int currentPosition;
+    private int skipColor;
     private double scrollSpeed;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -138,6 +140,8 @@ public abstract class VerticalIntro extends AppCompatActivity {
             onFragmentChanged(position);
 
             Utils.setUpRecentAppStyle(VerticalIntro.this, verticalIntroItemList.get(position).getBackgroundColor());
+            // TODO: 28.06.2017  fix animation
+            nextTextView.setTextColor(ContextCompat.getColor(context, verticalIntroItemList.get(position).getNextTextColor()));
 
             boolean isLastPosition = position == verticalIntroItemList.size() - 1;
             if (isSkipEnabled) {
@@ -247,6 +251,7 @@ public abstract class VerticalIntro extends AppCompatActivity {
         verticalViewPager.setScrollDurationFactor(SCROLL_DURATION_FACTOR_ON_CLICK);
     }
 
+    @SuppressLint("ClickableViewAccessibility")
     private void getScrollSpeed() {
         final double[] newX = new double[1];
         final double[] newY = new double[1];
@@ -280,11 +285,6 @@ public abstract class VerticalIntro extends AppCompatActivity {
         }
 
         skipContainer = (RelativeLayout) findViewById(R.id.skip_container);
-        
-        if (verticalIntroItemList.size() == 1) {
-            skipContainer.setVisibility(View.GONE);
-        }
-        
         verticalViewPager = (VerticalViewPager) findViewById(R.id.vertical_view_pager);
         bottomView = (RelativeLayout) findViewById(R.id.bottom_view);
         skipTextView = (TextView) findViewById(R.id.skip);
@@ -292,17 +292,24 @@ public abstract class VerticalIntro extends AppCompatActivity {
         vibrator = (Vibrator) this.getSystemService(VIBRATOR_SERVICE);
         skipContainer.setOnClickListener(skipClickListener);
 
+        if (verticalIntroItemList.size() == 1) {
+            skipContainer.setVisibility(View.GONE);
+        }
+
         if (nextText == null)
             nextText = getString(R.string.next);
         if (doneText == null)
             doneText = getString(R.string.done);
         if (skipText == null)
             skipText = getString(R.string.skip);
+        if (skipColor == 0) {
+            skipColor = R.color.white;
+        }
 
         skipTextView.setText(skipText);
         nextTextView.setText(nextText);
-        skipTextView.setTextColor(Color.parseColor(verticalIntroItemList.get(0).getNextTextColor()));
-        nextTextView.setTextColor(Color.parseColor(verticalIntroItemList.get(0).getNextTextColor()));
+        skipTextView.setTextColor(ContextCompat.getColor(this, skipColor));
+        nextTextView.setTextColor(ContextCompat.getColor(this, verticalIntroItemList.get(0).getNextTextColor()));
 
         Utils.setUpRecentAppStyle(this, verticalIntroItemList.get(0).getBackgroundColor());
 
@@ -341,6 +348,10 @@ public abstract class VerticalIntro extends AppCompatActivity {
 
     protected void setSkipEnabled(boolean skipEnabled) {
         isSkipEnabled = skipEnabled;
+    }
+
+    public void setSkipColor(int skipColor) {
+        this.skipColor = skipColor;
     }
 
     protected void setVibrateEnabled(boolean vibrateEnabled) {

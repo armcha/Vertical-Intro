@@ -1,6 +1,5 @@
 package com.luseen.verticalintrolibrary;
 
-import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
@@ -25,8 +24,7 @@ public class VerticalIntroFragment extends Fragment {
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.vertical_intro_base_layout, container, false);
         VerticalIntroItem verticalIntroItem = getArguments().getParcelable(VERTICAL_INTRO_ITEM_BUNDLE_KEY);
         if (verticalIntroItem != null) {
@@ -37,10 +35,13 @@ public class VerticalIntroFragment extends Fragment {
             text.setText(verticalIntroItem.getText());
             title.setText(verticalIntroItem.getTitle());
 
-            text.setTextColor(Color.parseColor(verticalIntroItem.getTextColor()));
-            text.setTextSize(verticalIntroItem.getTextSize());
-            title.setTextColor(Color.parseColor(verticalIntroItem.getTitleColor()));
-            title.setTextSize(verticalIntroItem.getTitleSize());
+            text.setTextColor(ContextCompat.getColor(getActivity(), verticalIntroItem.getTextColor()));
+            title.setTextColor(ContextCompat.getColor(getActivity(), verticalIntroItem.getTitleColor()));
+
+            if (verticalIntroItem.getTextSize() != 0)
+                text.setTextSize(verticalIntroItem.getTextSize());
+            if (verticalIntroItem.getTitleSize() != 0)
+                title.setTextSize(verticalIntroItem.getTitleSize());
 
             image.setImageResource(verticalIntroItem.getImage());
             view.setBackgroundColor(ContextCompat.getColor(getActivity(), verticalIntroItem.getBackgroundColor()));
