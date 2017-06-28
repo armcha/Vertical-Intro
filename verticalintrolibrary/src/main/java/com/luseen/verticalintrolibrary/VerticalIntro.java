@@ -5,6 +5,7 @@ import android.animation.AnimatorListenerAdapter;
 import android.animation.ObjectAnimator;
 import android.content.Context;
 import android.content.res.Configuration;
+import android.graphics.Color;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.os.Vibrator;
@@ -300,6 +301,8 @@ public abstract class VerticalIntro extends AppCompatActivity {
 
         skipTextView.setText(skipText);
         nextTextView.setText(nextText);
+        skipTextView.setTextColor(Color.parseColor(verticalIntroItemList.get(0).getNextTextColor()));
+        nextTextView.setTextColor(Color.parseColor(verticalIntroItemList.get(0).getNextTextColor()));
 
         Utils.setUpRecentAppStyle(this, verticalIntroItemList.get(0).getBackgroundColor());
 
