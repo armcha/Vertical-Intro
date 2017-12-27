@@ -8,9 +8,12 @@ import android.app.ActivityManager;
 import android.content.Context;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
+import android.graphics.Canvas;
+import android.graphics.drawable.AdaptiveIconDrawable;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
+import android.support.annotation.NonNull;
 import android.support.v4.content.ContextCompat;
 import android.view.View;
 import android.widget.TextView;
@@ -107,7 +110,7 @@ class Utils {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             try {
                 Drawable appIcon = activity.getPackageManager().getApplicationIcon(activity.getPackageName());
-                Bitmap bm = ((BitmapDrawable) appIcon).getBitmap();
+                Bitmap bm = getBitmapFromDrawable(appIcon);
                 int recentAppsStyleColor = ContextCompat.getColor(activity, targetColor);
                 ActivityManager.TaskDescription taskDescription =
                         new ActivityManager.TaskDescription(
@@ -117,5 +120,15 @@ class Utils {
                 e.printStackTrace();
             }
         }
+    }
+
+    @NonNull
+    private static Bitmap getBitmapFromDrawable(@NonNull Drawable drawable) {
+        Bitmap bmp = Bitmap.createBitmap(drawable.getIntrinsicWidth(), drawable.getIntrinsicHeight(),
+                Bitmap.Config.ARGB_8888);
+        Canvas canvas = new Canvas(bmp);
+        drawable.setBounds(0, 0, canvas.getWidth(), canvas.getHeight());
+        drawable.draw(canvas);
+        return bmp;
     }
 }

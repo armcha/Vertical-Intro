@@ -13,7 +13,7 @@ import java.lang.reflect.Field;
  * Created by Chatikyan on 18.10.2016.
  */
 
-class VerticalViewPager extends ViewPager {
+public class VerticalViewPager extends ViewPager {
 
     private ScrollerCustomDuration mScroller;
 
